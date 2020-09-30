@@ -1,0 +1,9 @@
+apiDir: "../liferay-travel-rest-api/src/main/java"
+apiPackagePath: "liferay.travel.rest"
+application:
+    baseURI: "/liferay-travel-rest"
+    className: "LiferayTravelRestApplication"
+    name: "LiferayTravelRest"
+author: "javierdearcos"
+clientDir: "../liferay-travel-rest-client/src/main/java"
+testDir: "../liferay-travel-rest-test/src/testIntegration/java"
