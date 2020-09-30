@@ -1,4 +1,0 @@
-Bundle-Name: liferay-travel-rest-test
-Bundle-SymbolicName: liferay.travel.rest.test
-Bundle-Version: 1.0.0
--includeresource: liferay.travel.rest.client.jar=../liferay-travel-rest-client/build/libs/liferay.travel.rest.client-1.0.0.jar;lib:=true
