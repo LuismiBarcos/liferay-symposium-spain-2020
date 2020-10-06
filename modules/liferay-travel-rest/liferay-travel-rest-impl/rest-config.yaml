@@ -1,7 +1,8 @@
 apiDir: "../liferay-travel-rest-api/src/main/java"
-apiPackagePath: "liferay.travel.rest"
+apiPackagePath: "com.liferay.travel.rest"
 application:
     baseURI: "/liferay-travel-rest"
     className: "LiferayTravelRESTApplication"
-    name: "Liferay Travel REST API"
+    name: "Liferay.Travel.REST.API"
 author: "Javier de Arcos"
+generateBatch: false

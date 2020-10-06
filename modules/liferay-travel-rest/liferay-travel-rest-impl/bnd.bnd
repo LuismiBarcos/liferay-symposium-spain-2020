@@ -1,3 +1,3 @@
-Bundle-Name: liferay-travel-rest-impl
-Bundle-SymbolicName: liferay.travel.rest.impl
+Bundle-Name: Liferay Travel REST Impl
+Bundle-SymbolicName: com.liferay.travel.rest.impl
 Bundle-Version: 1.0.0
