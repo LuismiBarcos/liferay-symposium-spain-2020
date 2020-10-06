@@ -11,15 +11,28 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+package com.liferay.travel.exception;
 
-package com.liferay.travel.rest.internal.service.exception;
+import com.liferay.portal.kernel.exception.NoSuchModelException;
 
 /**
- * @author Javier de Arcos
+ * @author Brian Wing Shun Chan
  */
-public class StageNotFoundException extends RuntimeException {
+public class NoSuchTripException extends NoSuchModelException {
 
-    public StageNotFoundException(long stageId) {
-        super("Stage with id " + stageId + " not found");
-    }
+	public NoSuchTripException() {
+	}
+
+	public NoSuchTripException(String msg) {
+		super(msg);
+	}
+
+	public NoSuchTripException(String msg, Throwable throwable) {
+		super(msg, throwable);
+	}
+
+	public NoSuchTripException(Throwable throwable) {
+		super(throwable);
+	}
+
 }

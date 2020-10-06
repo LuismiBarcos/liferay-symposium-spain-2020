@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.liferay.travel.model.Stage">
+		<field name="uuid" type="String" />
+		<field name="stageId" type="long" />
+		<field name="name" type="String" />
+		<field name="description" type="String" />
+		<field name="place" type="String" />
+		<field name="tripId" type="long" />
+	</model>
+	<model name="com.liferay.travel.model.Trip">
+		<field name="uuid" type="String" />
+		<field name="tripId" type="long" />
+		<field name="name" type="String" />
+		<field name="startingDate" type="Date" />
+	</model>
+</model-hints>
