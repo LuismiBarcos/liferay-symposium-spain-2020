@@ -3,7 +3,9 @@ package com.liferay.travel.rest.internal.resource.v1_0;
 import com.liferay.travel.rest.dto.v1_0.Stage;
 import com.liferay.travel.rest.resource.v1_0.StageResource;
 
+import com.liferay.travel.service.StageService;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 import javax.validation.constraints.NotNull;
@@ -18,22 +20,35 @@ import javax.validation.constraints.NotNull;
 public class StageResourceImpl extends BaseStageResourceImpl {
 
 	@Override
-	public void deleteStage(@NotNull Long stageId) throws Exception {
-		super.deleteStage(stageId);
+	public Stage getStage(@NotNull Long stageId) throws Exception {
+		return toStage(stageService.getStage(stageId));
 	}
 
 	@Override
-	public Stage getStage(@NotNull Long stageId) throws Exception {
-		return super.getStage(stageId);
+	public Stage postTripStage(@NotNull Long tripId, Stage stage) {
+		return toStage(stageService.addStage(tripId, stage.getName(), stage.getDescription(), stage.getPlace()));
 	}
 
 	@Override
 	public Stage putStage(@NotNull Long stageId, Stage stage) throws Exception {
-		return super.putStage(stageId, stage);
+		return toStage(stageService.updateStage(stageId, stage.getName(), stage.getDescription(), stage.getPlace()));
 	}
 
 	@Override
-	public Stage postTripStage(@NotNull Long tripId, Stage stage) throws Exception {
-		return super.postTripStage(tripId, stage);
+	public void deleteStage(@NotNull Long stageId) throws Exception {
+		stageService.deleteStage(stageId);
 	}
+
+	private Stage toStage(com.liferay.travel.model.Stage stage) {
+		Stage stageResource = new Stage();
+
+		stage.setName(stage.getName());
+		stage.setDescription(stage.getDescription());
+		stage.setPlace(stage.getPlace());
+
+		return stageResource;
+	}
+
+	@Reference
+	private StageService stageService;
 }

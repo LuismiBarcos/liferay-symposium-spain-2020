@@ -1,17 +1,21 @@
 package com.liferay.travel.rest.internal.resource.v1_0;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.travel.rest.dto.v1_0.Stage;
 import com.liferay.travel.rest.dto.v1_0.Trip;
 import com.liferay.travel.rest.resource.v1_0.TripResource;
 
+import com.liferay.travel.service.TripService;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author Javier de Arcos
@@ -24,35 +28,33 @@ public class TripResourceImpl extends BaseTripResourceImpl {
 
 	@Override
 	public Page<Trip> getTripsPage() {
-		return Page.of(_tripService.getTrips());
+		return Page.of(tripService.getTrips().stream().map(this::toTrip).collect(Collectors.toList()));
 	}
 
 	@Override
-	public Trip getTrip(@NotNull Long tripId) {
-		return _tripService.getTrip(tripId);
+	public Trip getTrip(@NotNull Long tripId) throws Exception {
+		return toTrip(tripService.getTrip(tripId));
 	}
 
-	private TripService _tripService = new TripService();
-
-	private static class TripService {
-		public Set<Trip> getTrips() {
-			return Collections.singleton(_exampleTrip);
-		}
-
-		public Trip getTrip(long id) {
-			return _exampleTrip;
-		}
-
-		private Trip _exampleTrip = new Trip() {{
-			id = 1L;
-			name = "Summer Team Building";
-			startingDate = new Date();
-			stages = Collections.singleton(new Stage() {{
-				id = 1L;
-				name = "Throw axes";
-				description = "What a better team building activity than throwing axes to your teammates";
-				place = "Madrid";
-			}}).toArray(new Stage[0]);
-		}};
+	@Override
+	public Trip postTrip(Trip trip) {
+		return toTrip(tripService.addTrip(trip.getName(), trip.getStartingDate()));
 	}
+
+	@Override
+	public void deleteTrip(@NotNull Long tripId) throws Exception {
+		tripService.deleteTrip(tripId);
+	}
+
+	private Trip toTrip(com.liferay.travel.model.Trip trip) {
+		Trip tripResource = new Trip();
+		tripResource.setId(trip.getTripId());
+		tripResource.setName(trip.getName());
+		tripResource.setStartingDate(trip.getStartingDate());
+
+		return tripResource;
+	}
+
+	@Reference
+	private TripService tripService;
 }
