@@ -70,7 +70,8 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 
 	public static final Object[][] TABLE_COLUMNS = {
 		{"uuid_", Types.VARCHAR}, {"tripId", Types.BIGINT},
-		{"name", Types.VARCHAR}, {"startingDate", Types.TIMESTAMP}
+		{"name", Types.VARCHAR}, {"description", Types.VARCHAR},
+		{"startingDate", Types.TIMESTAMP}, {"image", Types.VARCHAR}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -80,11 +81,13 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("tripId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("startingDate", Types.TIMESTAMP);
+		TABLE_COLUMNS_MAP.put("image", Types.VARCHAR);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table FOO_Trip (uuid_ VARCHAR(75) null,tripId LONG not null primary key,name VARCHAR(75) null,startingDate DATE null)";
+		"create table FOO_Trip (uuid_ VARCHAR(75) null,tripId LONG not null primary key,name VARCHAR(75) null,description VARCHAR(75) null,startingDate DATE null,image VARCHAR(75) null)";
 
 	public static final String TABLE_SQL_DROP = "drop table FOO_Trip";
 
@@ -136,7 +139,9 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 		model.setUuid(soapModel.getUuid());
 		model.setTripId(soapModel.getTripId());
 		model.setName(soapModel.getName());
+		model.setDescription(soapModel.getDescription());
 		model.setStartingDate(soapModel.getStartingDate());
+		model.setImage(soapModel.getImage());
 
 		return model;
 	}
@@ -290,9 +295,15 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 		attributeGetterFunctions.put("name", Trip::getName);
 		attributeSetterBiConsumers.put(
 			"name", (BiConsumer<Trip, String>)Trip::setName);
+		attributeGetterFunctions.put("description", Trip::getDescription);
+		attributeSetterBiConsumers.put(
+			"description", (BiConsumer<Trip, String>)Trip::setDescription);
 		attributeGetterFunctions.put("startingDate", Trip::getStartingDate);
 		attributeSetterBiConsumers.put(
 			"startingDate", (BiConsumer<Trip, Date>)Trip::setStartingDate);
+		attributeGetterFunctions.put("image", Trip::getImage);
+		attributeSetterBiConsumers.put(
+			"image", (BiConsumer<Trip, String>)Trip::setImage);
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -355,6 +366,22 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 
 	@JSON
 	@Override
+	public String getDescription() {
+		if (_description == null) {
+			return "";
+		}
+		else {
+			return _description;
+		}
+	}
+
+	@Override
+	public void setDescription(String description) {
+		_description = description;
+	}
+
+	@JSON
+	@Override
 	public Date getStartingDate() {
 		return _startingDate;
 	}
@@ -364,6 +391,22 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 		_columnBitmask = -1L;
 
 		_startingDate = startingDate;
+	}
+
+	@JSON
+	@Override
+	public String getImage() {
+		if (_image == null) {
+			return "";
+		}
+		else {
+			return _image;
+		}
+	}
+
+	@Override
+	public void setImage(String image) {
+		_image = image;
 	}
 
 	public long getColumnBitmask() {
@@ -405,7 +448,9 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 		tripImpl.setUuid(getUuid());
 		tripImpl.setTripId(getTripId());
 		tripImpl.setName(getName());
+		tripImpl.setDescription(getDescription());
 		tripImpl.setStartingDate(getStartingDate());
+		tripImpl.setImage(getImage());
 
 		tripImpl.resetOriginalValues();
 
@@ -501,6 +546,14 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 			tripCacheModel.name = null;
 		}
 
+		tripCacheModel.description = getDescription();
+
+		String description = tripCacheModel.description;
+
+		if ((description != null) && (description.length() == 0)) {
+			tripCacheModel.description = null;
+		}
+
 		Date startingDate = getStartingDate();
 
 		if (startingDate != null) {
@@ -508,6 +561,14 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 		}
 		else {
 			tripCacheModel.startingDate = Long.MIN_VALUE;
+		}
+
+		tripCacheModel.image = getImage();
+
+		String image = tripCacheModel.image;
+
+		if ((image != null) && (image.length() == 0)) {
+			tripCacheModel.image = null;
 		}
 
 		return tripCacheModel;
@@ -585,7 +646,9 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 	private String _originalUuid;
 	private long _tripId;
 	private String _name;
+	private String _description;
 	private Date _startingDate;
+	private String _image;
 	private long _columnBitmask;
 	private Trip _escapedModel;
 

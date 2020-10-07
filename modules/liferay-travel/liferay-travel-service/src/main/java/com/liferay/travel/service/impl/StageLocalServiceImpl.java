@@ -52,25 +52,26 @@ public class StageLocalServiceImpl extends StageLocalServiceBaseImpl {
 		return stagePersistence.findByPrimaryKey(stageId);
 	}
 
-	public Stage addStage(long tripId, String name, String description, String place) {
+	public Stage addStage(long tripId, String name, String description, String place, String image) {
 		long stageId = counterLocalService.increment();
 
 		Stage newStage = stagePersistence.create(stageId);
-
 		newStage.setName(name);
 		newStage.setDescription(description);
 		newStage.setPlace(place);
+		newStage.setImage(image);
 		newStage.setTripId(tripId);
 
 		return stagePersistence.update(newStage);
 	}
 
-	public Stage updateStage(long stageId, String name, String description, String place) throws PortalException {
+	public Stage updateStage(long stageId, String name, String description, String place, String image)
+			throws PortalException {
 		Stage stage = stagePersistence.findByPrimaryKey(stageId);
-
 		stage.setName(name);
 		stage.setDescription(description);
 		stage.setPlace(place);
+		stage.setImage(image);
 
 		return stagePersistence.update(stage);
 	}

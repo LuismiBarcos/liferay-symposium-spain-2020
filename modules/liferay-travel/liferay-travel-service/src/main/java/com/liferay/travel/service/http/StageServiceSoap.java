@@ -96,12 +96,14 @@ public class StageServiceSoap {
 	}
 
 	public static com.liferay.travel.model.StageSoap addStage(
-			long tripId, String name, String description, String place)
+			long tripId, String name, String description, String place,
+			String image)
 		throws RemoteException {
 
 		try {
 			com.liferay.travel.model.Stage returnValue =
-				StageServiceUtil.addStage(tripId, name, description, place);
+				StageServiceUtil.addStage(
+					tripId, name, description, place, image);
 
 			return com.liferay.travel.model.StageSoap.toSoapModel(returnValue);
 		}
@@ -113,12 +115,14 @@ public class StageServiceSoap {
 	}
 
 	public static com.liferay.travel.model.StageSoap updateStage(
-			long stageId, String name, String description, String place)
+			long stageId, String name, String description, String place,
+			String image)
 		throws RemoteException {
 
 		try {
 			com.liferay.travel.model.Stage returnValue =
-				StageServiceUtil.updateStage(stageId, name, description, place);
+				StageServiceUtil.updateStage(
+					stageId, name, description, place, image);
 
 			return com.liferay.travel.model.StageSoap.toSoapModel(returnValue);
 		}

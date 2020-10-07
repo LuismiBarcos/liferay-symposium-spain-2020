@@ -100,6 +100,21 @@ public interface TripModel extends BaseModel<Trip> {
 	public void setName(String name);
 
 	/**
+	 * Returns the description of this trip.
+	 *
+	 * @return the description of this trip
+	 */
+	@AutoEscape
+	public String getDescription();
+
+	/**
+	 * Sets the description of this trip.
+	 *
+	 * @param description the description of this trip
+	 */
+	public void setDescription(String description);
+
+	/**
 	 * Returns the starting date of this trip.
 	 *
 	 * @return the starting date of this trip
@@ -112,5 +127,20 @@ public interface TripModel extends BaseModel<Trip> {
 	 * @param startingDate the starting date of this trip
 	 */
 	public void setStartingDate(Date startingDate);
+
+	/**
+	 * Returns the image of this trip.
+	 *
+	 * @return the image of this trip
+	 */
+	@AutoEscape
+	public String getImage();
+
+	/**
+	 * Sets the image of this trip.
+	 *
+	 * @param image the image of this trip
+	 */
+	public void setImage(String image);
 
 }

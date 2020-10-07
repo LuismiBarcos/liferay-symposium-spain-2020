@@ -52,7 +52,8 @@ public interface TripService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.travel.service.impl.TripServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the trip remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link TripServiceUtil} if injection and service tracking are not available.
 	 */
-	public Trip addTrip(String name, Date startingDate);
+	public Trip addTrip(
+		String name, String description, Date startingDate, String image);
 
 	public Trip deleteTrip(long tripId) throws PortalException;
 
@@ -69,7 +70,9 @@ public interface TripService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Trip> getTrips();
 
-	public Trip updateTrip(long tripId, String name, Date startingDate)
+	public Trip updateTrip(
+			long tripId, String name, String description, Date startingDate,
+			String image)
 		throws PortalException;
 
 }

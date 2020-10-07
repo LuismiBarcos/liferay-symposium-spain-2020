@@ -32,9 +32,11 @@ public class TripLocalServiceWrapper
 
 	@Override
 	public com.liferay.travel.model.Trip addTrip(
-		String name, java.util.Date startingDate) {
+		String name, String description, java.util.Date startingDate,
+		String image) {
 
-		return _tripLocalService.addTrip(name, startingDate);
+		return _tripLocalService.addTrip(
+			name, description, startingDate, image);
 	}
 
 	/**
@@ -300,10 +302,12 @@ public class TripLocalServiceWrapper
 
 	@Override
 	public com.liferay.travel.model.Trip updateTrip(
-			long tripId, String name, java.util.Date startingDate)
+			long tripId, String name, String description,
+			java.util.Date startingDate, String image)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
-		return _tripLocalService.updateTrip(tripId, name, startingDate);
+		return _tripLocalService.updateTrip(
+			tripId, name, description, startingDate, image);
 	}
 
 	/**

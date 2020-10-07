@@ -52,7 +52,8 @@ public interface StageService extends BaseService {
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.travel.service.impl.StageServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the stage remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link StageServiceUtil} if injection and service tracking are not available.
 	 */
 	public Stage addStage(
-		long tripId, String name, String description, String place);
+		long tripId, String name, String description, String place,
+		String image);
 
 	public Stage deleteStage(long stageId) throws PortalException;
 
@@ -70,7 +71,8 @@ public interface StageService extends BaseService {
 	public List<Stage> getStages(long tripId);
 
 	public Stage updateStage(
-			long stageId, String name, String description, String place)
+			long stageId, String name, String description, String place,
+			String image)
 		throws PortalException;
 
 }

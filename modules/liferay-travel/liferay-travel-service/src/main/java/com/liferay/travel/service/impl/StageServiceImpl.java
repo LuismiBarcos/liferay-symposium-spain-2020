@@ -53,12 +53,13 @@ public class StageServiceImpl extends StageServiceBaseImpl {
 		return stageLocalService.getStage(stageId);
 	}
 
-	public Stage addStage(long tripId, String name, String description, String place) {
-		return stageLocalService.addStage(tripId, name, description, place);
+	public Stage addStage(long tripId, String name, String description, String place, String image) {
+		return stageLocalService.addStage(tripId, name, description, place, image);
 	}
 
-	public Stage updateStage(long stageId, String name, String description, String place) throws PortalException {
-		return stageLocalService.updateStage(stageId, name, description, place);
+	public Stage updateStage(long stageId, String name, String description, String place, String image)
+			throws PortalException {
+		return stageLocalService.updateStage(stageId, name, description, place, image);
 	}
 
 	public Stage deleteStage(long stageId) throws PortalException {

@@ -61,7 +61,8 @@ public interface TripLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.travel.service.impl.TripLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the trip local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link TripLocalServiceUtil} if injection and service tracking are not available.
 	 */
-	public Trip addTrip(String name, Date startingDate);
+	public Trip addTrip(
+		String name, String description, Date startingDate, String image);
 
 	/**
 	 * Adds the trip to the database. Also notifies the appropriate model listeners.
@@ -250,7 +251,9 @@ public interface TripLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getTripsCount();
 
-	public Trip updateTrip(long tripId, String name, Date startingDate)
+	public Trip updateTrip(
+			long tripId, String name, String description, Date startingDate,
+			String image)
 		throws PortalException;
 
 	/**

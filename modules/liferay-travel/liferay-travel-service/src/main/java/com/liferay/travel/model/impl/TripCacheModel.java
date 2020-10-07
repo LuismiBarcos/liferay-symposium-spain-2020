@@ -60,7 +60,7 @@ public class TripCacheModel implements CacheModel<Trip>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(9);
+		StringBundler sb = new StringBundler(13);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -68,8 +68,12 @@ public class TripCacheModel implements CacheModel<Trip>, Externalizable {
 		sb.append(tripId);
 		sb.append(", name=");
 		sb.append(name);
+		sb.append(", description=");
+		sb.append(description);
 		sb.append(", startingDate=");
 		sb.append(startingDate);
+		sb.append(", image=");
+		sb.append(image);
 		sb.append("}");
 
 		return sb.toString();
@@ -95,11 +99,25 @@ public class TripCacheModel implements CacheModel<Trip>, Externalizable {
 			tripImpl.setName(name);
 		}
 
+		if (description == null) {
+			tripImpl.setDescription("");
+		}
+		else {
+			tripImpl.setDescription(description);
+		}
+
 		if (startingDate == Long.MIN_VALUE) {
 			tripImpl.setStartingDate(null);
 		}
 		else {
 			tripImpl.setStartingDate(new Date(startingDate));
+		}
+
+		if (image == null) {
+			tripImpl.setImage("");
+		}
+		else {
+			tripImpl.setImage(image);
 		}
 
 		tripImpl.resetOriginalValues();
@@ -113,7 +131,9 @@ public class TripCacheModel implements CacheModel<Trip>, Externalizable {
 
 		tripId = objectInput.readLong();
 		name = objectInput.readUTF();
+		description = objectInput.readUTF();
 		startingDate = objectInput.readLong();
+		image = objectInput.readUTF();
 	}
 
 	@Override
@@ -134,12 +154,28 @@ public class TripCacheModel implements CacheModel<Trip>, Externalizable {
 			objectOutput.writeUTF(name);
 		}
 
+		if (description == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(description);
+		}
+
 		objectOutput.writeLong(startingDate);
+
+		if (image == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(image);
+		}
 	}
 
 	public String uuid;
 	public long tripId;
 	public String name;
+	public String description;
 	public long startingDate;
+	public String image;
 
 }

@@ -52,21 +52,25 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		return tripPersistence.findByPrimaryKey(tripId);
 	}
 
-	public Trip addTrip(String name, Date startingDate) {
+	public Trip addTrip(String name, String description, Date startingDate, String image) {
 		long tripId = counterLocalService.increment();
 
 		Trip newTrip = tripPersistence.create(tripId);
-
 		newTrip.setName(name);
+		newTrip.setDescription(description);
 		newTrip.setStartingDate(startingDate);
+		newTrip.setImage(image);
 
 		return tripPersistence.update(newTrip);
 	}
 
-	public Trip updateTrip(long tripId, String name, Date startingDate) throws PortalException {
+	public Trip updateTrip(long tripId, String name, String description, Date startingDate, String image)
+			throws PortalException {
 		Trip trip = tripPersistence.findByPrimaryKey(tripId);
 		trip.setName(name);
 		trip.setStartingDate(startingDate);
+		trip.setDescription(description);
+		trip.setImage(image);
 
 		return tripPersistence.update(trip);
 	}

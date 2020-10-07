@@ -6,7 +6,9 @@
 	<entity local-service="true" name="Trip" remote-service="true" uuid="true">
 		<column name="tripId" primary="true" type="long" />
 		<column name="name" type="String" />
+		<column name="description" type="String" />
 		<column name="startingDate" type="Date" />
+		<column name="image" type="String" />
 
 		<order by="asc">
 			<order-column name="startingDate" />
@@ -17,6 +19,7 @@
 		<column name="name" type="String" />
 		<column name="description" type="String" />
 		<column name="place" type="String" />
+		<column name="image" type="String" />
 		<column name="tripId" type="long" />
 
 		<finder name="TripId" return-type="Collection">

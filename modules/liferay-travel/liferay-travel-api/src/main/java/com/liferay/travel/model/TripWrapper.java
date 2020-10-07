@@ -44,7 +44,9 @@ public class TripWrapper
 		attributes.put("uuid", getUuid());
 		attributes.put("tripId", getTripId());
 		attributes.put("name", getName());
+		attributes.put("description", getDescription());
 		attributes.put("startingDate", getStartingDate());
+		attributes.put("image", getImage());
 
 		return attributes;
 	}
@@ -69,11 +71,43 @@ public class TripWrapper
 			setName(name);
 		}
 
+		String description = (String)attributes.get("description");
+
+		if (description != null) {
+			setDescription(description);
+		}
+
 		Date startingDate = (Date)attributes.get("startingDate");
 
 		if (startingDate != null) {
 			setStartingDate(startingDate);
 		}
+
+		String image = (String)attributes.get("image");
+
+		if (image != null) {
+			setImage(image);
+		}
+	}
+
+	/**
+	 * Returns the description of this trip.
+	 *
+	 * @return the description of this trip
+	 */
+	@Override
+	public String getDescription() {
+		return model.getDescription();
+	}
+
+	/**
+	 * Returns the image of this trip.
+	 *
+	 * @return the image of this trip
+	 */
+	@Override
+	public String getImage() {
+		return model.getImage();
 	}
 
 	/**
@@ -129,6 +163,26 @@ public class TripWrapper
 	@Override
 	public void persist() {
 		model.persist();
+	}
+
+	/**
+	 * Sets the description of this trip.
+	 *
+	 * @param description the description of this trip
+	 */
+	@Override
+	public void setDescription(String description) {
+		model.setDescription(description);
+	}
+
+	/**
+	 * Sets the image of this trip.
+	 *
+	 * @param image the image of this trip
+	 */
+	@Override
+	public void setImage(String image) {
+		model.setImage(image);
 	}
 
 	/**

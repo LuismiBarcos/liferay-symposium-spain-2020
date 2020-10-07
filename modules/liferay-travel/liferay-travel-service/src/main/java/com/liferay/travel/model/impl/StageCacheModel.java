@@ -58,7 +58,7 @@ public class StageCacheModel implements CacheModel<Stage>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(15);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
@@ -70,6 +70,8 @@ public class StageCacheModel implements CacheModel<Stage>, Externalizable {
 		sb.append(description);
 		sb.append(", place=");
 		sb.append(place);
+		sb.append(", image=");
+		sb.append(image);
 		sb.append(", tripId=");
 		sb.append(tripId);
 		sb.append("}");
@@ -111,6 +113,13 @@ public class StageCacheModel implements CacheModel<Stage>, Externalizable {
 			stageImpl.setPlace(place);
 		}
 
+		if (image == null) {
+			stageImpl.setImage("");
+		}
+		else {
+			stageImpl.setImage(image);
+		}
+
 		stageImpl.setTripId(tripId);
 
 		stageImpl.resetOriginalValues();
@@ -126,6 +135,7 @@ public class StageCacheModel implements CacheModel<Stage>, Externalizable {
 		name = objectInput.readUTF();
 		description = objectInput.readUTF();
 		place = objectInput.readUTF();
+		image = objectInput.readUTF();
 
 		tripId = objectInput.readLong();
 	}
@@ -162,6 +172,13 @@ public class StageCacheModel implements CacheModel<Stage>, Externalizable {
 			objectOutput.writeUTF(place);
 		}
 
+		if (image == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(image);
+		}
+
 		objectOutput.writeLong(tripId);
 	}
 
@@ -170,6 +187,7 @@ public class StageCacheModel implements CacheModel<Stage>, Externalizable {
 	public String name;
 	public String description;
 	public String place;
+	public String image;
 	public long tripId;
 
 }

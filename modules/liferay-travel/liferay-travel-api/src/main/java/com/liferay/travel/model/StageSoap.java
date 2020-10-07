@@ -37,6 +37,7 @@ public class StageSoap implements Serializable {
 		soapModel.setName(model.getName());
 		soapModel.setDescription(model.getDescription());
 		soapModel.setPlace(model.getPlace());
+		soapModel.setImage(model.getImage());
 		soapModel.setTripId(model.getTripId());
 
 		return soapModel;
@@ -130,6 +131,14 @@ public class StageSoap implements Serializable {
 		_place = place;
 	}
 
+	public String getImage() {
+		return _image;
+	}
+
+	public void setImage(String image) {
+		_image = image;
+	}
+
 	public long getTripId() {
 		return _tripId;
 	}
@@ -143,6 +152,7 @@ public class StageSoap implements Serializable {
 	private String _name;
 	private String _description;
 	private String _place;
+	private String _image;
 	private long _tripId;
 
 }

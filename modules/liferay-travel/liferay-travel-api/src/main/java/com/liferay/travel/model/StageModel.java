@@ -128,6 +128,21 @@ public interface StageModel extends BaseModel<Stage> {
 	public void setPlace(String place);
 
 	/**
+	 * Returns the image of this stage.
+	 *
+	 * @return the image of this stage
+	 */
+	@AutoEscape
+	public String getImage();
+
+	/**
+	 * Sets the image of this stage.
+	 *
+	 * @param image the image of this stage
+	 */
+	public void setImage(String image);
+
+	/**
 	 * Returns the trip ID of this stage.
 	 *
 	 * @return the trip ID of this stage

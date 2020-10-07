@@ -121,14 +121,14 @@ public class StageServiceHttp {
 
 	public static com.liferay.travel.model.Stage addStage(
 		HttpPrincipal httpPrincipal, long tripId, String name,
-		String description, String place) {
+		String description, String place, String image) {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				StageServiceUtil.class, "addStage", _addStageParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, tripId, name, description, place);
+				methodKey, tripId, name, description, place, image);
 
 			Object returnObj = null;
 
@@ -153,7 +153,7 @@ public class StageServiceHttp {
 
 	public static com.liferay.travel.model.Stage updateStage(
 			HttpPrincipal httpPrincipal, long stageId, String name,
-			String description, String place)
+			String description, String place, String image)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -162,7 +162,7 @@ public class StageServiceHttp {
 				_updateStageParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, stageId, name, description, place);
+				methodKey, stageId, name, description, place, image);
 
 			Object returnObj = null;
 
@@ -240,10 +240,10 @@ public class StageServiceHttp {
 		long.class
 	};
 	private static final Class<?>[] _addStageParameterTypes2 = new Class[] {
-		long.class, String.class, String.class, String.class
+		long.class, String.class, String.class, String.class, String.class
 	};
 	private static final Class<?>[] _updateStageParameterTypes3 = new Class[] {
-		long.class, String.class, String.class, String.class
+		long.class, String.class, String.class, String.class, String.class
 	};
 	private static final Class<?>[] _deleteStageParameterTypes4 = new Class[] {
 		long.class

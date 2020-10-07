@@ -36,7 +36,9 @@ public class TripSoap implements Serializable {
 		soapModel.setUuid(model.getUuid());
 		soapModel.setTripId(model.getTripId());
 		soapModel.setName(model.getName());
+		soapModel.setDescription(model.getDescription());
 		soapModel.setStartingDate(model.getStartingDate());
+		soapModel.setImage(model.getImage());
 
 		return soapModel;
 	}
@@ -113,6 +115,14 @@ public class TripSoap implements Serializable {
 		_name = name;
 	}
 
+	public String getDescription() {
+		return _description;
+	}
+
+	public void setDescription(String description) {
+		_description = description;
+	}
+
 	public Date getStartingDate() {
 		return _startingDate;
 	}
@@ -121,9 +131,19 @@ public class TripSoap implements Serializable {
 		_startingDate = startingDate;
 	}
 
+	public String getImage() {
+		return _image;
+	}
+
+	public void setImage(String image) {
+		_image = image;
+	}
+
 	private String _uuid;
 	private long _tripId;
 	private String _name;
+	private String _description;
 	private Date _startingDate;
+	private String _image;
 
 }

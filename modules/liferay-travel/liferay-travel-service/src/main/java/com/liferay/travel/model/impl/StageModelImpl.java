@@ -69,7 +69,8 @@ public class StageModelImpl extends BaseModelImpl<Stage> implements StageModel {
 	public static final Object[][] TABLE_COLUMNS = {
 		{"uuid_", Types.VARCHAR}, {"stageId", Types.BIGINT},
 		{"name", Types.VARCHAR}, {"description", Types.VARCHAR},
-		{"place", Types.VARCHAR}, {"tripId", Types.BIGINT}
+		{"place", Types.VARCHAR}, {"image", Types.VARCHAR},
+		{"tripId", Types.BIGINT}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -81,11 +82,12 @@ public class StageModelImpl extends BaseModelImpl<Stage> implements StageModel {
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("place", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("image", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("tripId", Types.BIGINT);
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table FOO_Stage (uuid_ VARCHAR(75) null,stageId LONG not null primary key,name VARCHAR(75) null,description VARCHAR(75) null,place VARCHAR(75) null,tripId LONG)";
+		"create table FOO_Stage (uuid_ VARCHAR(75) null,stageId LONG not null primary key,name VARCHAR(75) null,description VARCHAR(75) null,place VARCHAR(75) null,image VARCHAR(75) null,tripId LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table FOO_Stage";
 
@@ -139,6 +141,7 @@ public class StageModelImpl extends BaseModelImpl<Stage> implements StageModel {
 		model.setName(soapModel.getName());
 		model.setDescription(soapModel.getDescription());
 		model.setPlace(soapModel.getPlace());
+		model.setImage(soapModel.getImage());
 		model.setTripId(soapModel.getTripId());
 
 		return model;
@@ -299,6 +302,9 @@ public class StageModelImpl extends BaseModelImpl<Stage> implements StageModel {
 		attributeGetterFunctions.put("place", Stage::getPlace);
 		attributeSetterBiConsumers.put(
 			"place", (BiConsumer<Stage, String>)Stage::setPlace);
+		attributeGetterFunctions.put("image", Stage::getImage);
+		attributeSetterBiConsumers.put(
+			"image", (BiConsumer<Stage, String>)Stage::setImage);
 		attributeGetterFunctions.put("tripId", Stage::getTripId);
 		attributeSetterBiConsumers.put(
 			"tripId", (BiConsumer<Stage, Long>)Stage::setTripId);
@@ -396,6 +402,22 @@ public class StageModelImpl extends BaseModelImpl<Stage> implements StageModel {
 
 	@JSON
 	@Override
+	public String getImage() {
+		if (_image == null) {
+			return "";
+		}
+		else {
+			return _image;
+		}
+	}
+
+	@Override
+	public void setImage(String image) {
+		_image = image;
+	}
+
+	@JSON
+	@Override
 	public long getTripId() {
 		return _tripId;
 	}
@@ -458,6 +480,7 @@ public class StageModelImpl extends BaseModelImpl<Stage> implements StageModel {
 		stageImpl.setName(getName());
 		stageImpl.setDescription(getDescription());
 		stageImpl.setPlace(getPlace());
+		stageImpl.setImage(getImage());
 		stageImpl.setTripId(getTripId());
 
 		stageImpl.resetOriginalValues();
@@ -576,6 +599,14 @@ public class StageModelImpl extends BaseModelImpl<Stage> implements StageModel {
 			stageCacheModel.place = null;
 		}
 
+		stageCacheModel.image = getImage();
+
+		String image = stageCacheModel.image;
+
+		if ((image != null) && (image.length() == 0)) {
+			stageCacheModel.image = null;
+		}
+
 		stageCacheModel.tripId = getTripId();
 
 		return stageCacheModel;
@@ -655,6 +686,7 @@ public class StageModelImpl extends BaseModelImpl<Stage> implements StageModel {
 	private String _name;
 	private String _description;
 	private String _place;
+	private String _image;
 	private long _tripId;
 	private long _originalTripId;
 	private boolean _setOriginalTripId;

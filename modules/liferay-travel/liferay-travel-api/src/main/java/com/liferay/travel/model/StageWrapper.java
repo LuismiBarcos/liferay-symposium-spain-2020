@@ -45,6 +45,7 @@ public class StageWrapper
 		attributes.put("name", getName());
 		attributes.put("description", getDescription());
 		attributes.put("place", getPlace());
+		attributes.put("image", getImage());
 		attributes.put("tripId", getTripId());
 
 		return attributes;
@@ -82,6 +83,12 @@ public class StageWrapper
 			setPlace(place);
 		}
 
+		String image = (String)attributes.get("image");
+
+		if (image != null) {
+			setImage(image);
+		}
+
 		Long tripId = (Long)attributes.get("tripId");
 
 		if (tripId != null) {
@@ -97,6 +104,16 @@ public class StageWrapper
 	@Override
 	public String getDescription() {
 		return model.getDescription();
+	}
+
+	/**
+	 * Returns the image of this stage.
+	 *
+	 * @return the image of this stage
+	 */
+	@Override
+	public String getImage() {
+		return model.getImage();
 	}
 
 	/**
@@ -172,6 +189,16 @@ public class StageWrapper
 	@Override
 	public void setDescription(String description) {
 		model.setDescription(description);
+	}
+
+	/**
+	 * Sets the image of this stage.
+	 *
+	 * @param image the image of this stage
+	 */
+	@Override
+	public void setImage(String image) {
+		model.setImage(image);
 	}
 
 	/**

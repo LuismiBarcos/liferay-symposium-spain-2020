@@ -55,12 +55,13 @@ public class TripServiceImpl extends TripServiceBaseImpl {
 		return tripLocalService.getTrip(tripId);
 	}
 
-	public Trip addTrip(String name, Date startingDate) {
-		return tripLocalService.addTrip(name, startingDate);
+	public Trip addTrip(String name, String description, Date startingDate, String image) {
+		return tripLocalService.addTrip(name, description, startingDate, image);
 	}
 
-	public Trip updateTrip(long tripId, String name, Date startingDate) throws PortalException {
-		return tripLocalService.updateTrip(tripId, name, startingDate);
+	public Trip updateTrip(long tripId, String name, String description, Date startingDate, String image)
+			throws PortalException {
+		return tripLocalService.updateTrip(tripId, name, description, startingDate, image);
 	}
 
 	public Trip deleteTrip(long tripId) throws PortalException {

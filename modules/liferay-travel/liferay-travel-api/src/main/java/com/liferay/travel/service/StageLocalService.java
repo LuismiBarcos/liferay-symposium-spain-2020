@@ -61,7 +61,8 @@ public interface StageLocalService
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.travel.service.impl.StageLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the stage local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link StageLocalServiceUtil} if injection and service tracking are not available.
 	 */
 	public Stage addStage(
-		long tripId, String name, String description, String place);
+		long tripId, String name, String description, String place,
+		String image);
 
 	/**
 	 * Adds the stage to the database. Also notifies the appropriate model listeners.
@@ -251,7 +252,8 @@ public interface StageLocalService
 	public int getStagesCount();
 
 	public Stage updateStage(
-			long stageId, String name, String description, String place)
+			long stageId, String name, String description, String place,
+			String image)
 		throws PortalException;
 
 	/**
