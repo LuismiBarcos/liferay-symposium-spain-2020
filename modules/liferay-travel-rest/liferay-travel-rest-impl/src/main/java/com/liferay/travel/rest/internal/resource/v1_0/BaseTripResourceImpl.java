@@ -34,6 +34,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -64,7 +65,7 @@ public abstract class BaseTripResourceImpl implements TripResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/liferay-travel-rest/v1.0/trips' -d $'{"id": ___, "name": ___, "stages": ___, "starting-date": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/liferay-travel-rest/v1.0/trips' -d $'{"description": ___, "id": ___, "image": ___, "name": ___, "stages": ___, "starting-date": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -105,6 +106,26 @@ public abstract class BaseTripResourceImpl implements TripResource {
 	@Tags(value = {@Tag(name = "Trip")})
 	public Trip getTrip(
 			@NotNull @Parameter(hidden = true) @PathParam("tripId") Long tripId)
+		throws Exception {
+
+		return new Trip();
+	}
+
+	/**
+	 * Invoke this method with the command line:
+	 *
+	 * curl -X 'PUT' 'http://localhost:8080/o/liferay-travel-rest/v1.0/trips/{tripId}' -d $'{"description": ___, "id": ___, "image": ___, "name": ___, "stages": ___, "starting-date": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 */
+	@Override
+	@Consumes({"application/json", "application/xml"})
+	@PUT
+	@Parameters(value = {@Parameter(in = ParameterIn.PATH, name = "tripId")})
+	@Path("/trips/{tripId}")
+	@Produces({"application/json", "application/xml"})
+	@Tags(value = {@Tag(name = "Trip")})
+	public Trip putTrip(
+			@NotNull @Parameter(hidden = true) @PathParam("tripId") Long tripId,
+			Trip trip)
 		throws Exception {
 
 		return new Trip();

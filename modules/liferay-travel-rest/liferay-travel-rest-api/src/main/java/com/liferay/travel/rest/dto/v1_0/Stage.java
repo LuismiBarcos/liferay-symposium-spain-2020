@@ -96,7 +96,7 @@ public class Stage {
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long id;
 
-	@Schema(description = "Descriptive image in Base64")
+	@Schema(description = "Descriptive image of the stage in Base64")
 	public String getImage() {
 		return image;
 	}
@@ -120,7 +120,7 @@ public class Stage {
 		}
 	}
 
-	@GraphQLField(description = "Descriptive image in Base64")
+	@GraphQLField(description = "Descriptive image of the stage in Base64")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected String image;
 

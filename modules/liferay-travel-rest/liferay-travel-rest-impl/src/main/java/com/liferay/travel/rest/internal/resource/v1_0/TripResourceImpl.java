@@ -1,8 +1,6 @@
 package com.liferay.travel.rest.internal.resource.v1_0;
 
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.vulcan.pagination.Page;
-import com.liferay.travel.rest.dto.v1_0.Stage;
 import com.liferay.travel.rest.dto.v1_0.Trip;
 import com.liferay.travel.rest.resource.v1_0.TripResource;
 
@@ -12,9 +10,6 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 import javax.validation.constraints.NotNull;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -38,7 +33,12 @@ public class TripResourceImpl extends BaseTripResourceImpl {
 
 	@Override
 	public Trip postTrip(Trip trip) {
-		return toTrip(tripService.addTrip(trip.getName(), trip.getStartingDate()));
+		return toTrip(tripService.addTrip(trip.getName(), trip.getDescription(), trip.getStartingDate(), trip.getImage()));
+	}
+
+	@Override
+	public Trip putTrip(@NotNull Long tripId, Trip trip) throws Exception {
+		return toTrip(tripService.updateTrip(tripId, trip.getName(), trip.getDescription(), trip.getStartingDate(), trip.getImage()));
 	}
 
 	@Override
@@ -50,7 +50,9 @@ public class TripResourceImpl extends BaseTripResourceImpl {
 		Trip tripResource = new Trip();
 		tripResource.setId(trip.getTripId());
 		tripResource.setName(trip.getName());
+		tripResource.setDescription(trip.getDescription());
 		tripResource.setStartingDate(trip.getStartingDate());
+		tripResource.setImage(trip.getImage());
 
 		return tripResource;
 	}

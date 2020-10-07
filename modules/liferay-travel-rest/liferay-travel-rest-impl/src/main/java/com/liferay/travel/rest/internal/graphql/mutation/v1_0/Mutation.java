@@ -101,6 +101,17 @@ public class Mutation {
 		return true;
 	}
 
+	@GraphQLField
+	public Trip updateTrip(
+			@GraphQLName("tripId") Long tripId, @GraphQLName("trip") Trip trip)
+		throws Exception {
+
+		return _applyComponentServiceObjects(
+			_tripResourceComponentServiceObjects,
+			this::_populateResourceContext,
+			tripResource -> tripResource.putTrip(tripId, trip));
+	}
+
 	private <T, R, E1 extends Throwable, E2 extends Throwable> R
 			_applyComponentServiceObjects(
 				ComponentServiceObjects<T> componentServiceObjects,

@@ -46,6 +46,34 @@ public class Trip {
 		return ObjectMapperUtil.readValue(Trip.class, json);
 	}
 
+	@Schema(description = "Description of the trip")
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	@JsonIgnore
+	public void setDescription(
+		UnsafeSupplier<String, Exception> descriptionUnsafeSupplier) {
+
+		try {
+			description = descriptionUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField(description = "Description of the trip")
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String description;
+
 	@Schema(description = "Trip identifier")
 	public Long getId() {
 		return id;
@@ -71,6 +99,34 @@ public class Trip {
 	@GraphQLField(description = "Trip identifier")
 	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
 	protected Long id;
+
+	@Schema(description = "Descriptive image of the trip in Base64")
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	@JsonIgnore
+	public void setImage(
+		UnsafeSupplier<String, Exception> imageUnsafeSupplier) {
+
+		try {
+			image = imageUnsafeSupplier.get();
+		}
+		catch (RuntimeException re) {
+			throw re;
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@GraphQLField(description = "Descriptive image of the trip in Base64")
+	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	protected String image;
 
 	@Schema(description = "Name of the trip. Usually it denotes its purpose")
 	public String getName() {
@@ -188,6 +244,20 @@ public class Trip {
 		DateFormat liferayToJSONDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss'Z'");
 
+		if (description != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"description\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(description));
+
+			sb.append("\"");
+		}
+
 		if (id != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -196,6 +266,20 @@ public class Trip {
 			sb.append("\"id\": ");
 
 			sb.append(id);
+		}
+
+		if (image != null) {
+			if (sb.length() > 1) {
+				sb.append(", ");
+			}
+
+			sb.append("\"image\": ");
+
+			sb.append("\"");
+
+			sb.append(_escape(image));
+
+			sb.append("\"");
 		}
 
 		if (name != null) {

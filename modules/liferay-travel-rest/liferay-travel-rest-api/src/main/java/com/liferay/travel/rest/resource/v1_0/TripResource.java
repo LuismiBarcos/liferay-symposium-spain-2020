@@ -39,6 +39,8 @@ public interface TripResource {
 
 	public Trip getTrip(Long tripId) throws Exception;
 
+	public Trip putTrip(Long tripId, Trip trip) throws Exception;
+
 	public default void setContextAcceptLanguage(
 		AcceptLanguage contextAcceptLanguage) {
 	}

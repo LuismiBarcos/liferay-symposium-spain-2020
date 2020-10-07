@@ -26,12 +26,12 @@ public class StageResourceImpl extends BaseStageResourceImpl {
 
 	@Override
 	public Stage postTripStage(@NotNull Long tripId, Stage stage) {
-		return toStage(stageService.addStage(tripId, stage.getName(), stage.getDescription(), stage.getPlace()));
+		return toStage(stageService.addStage(tripId, stage.getName(), stage.getDescription(), stage.getPlace(), stage.getImage()));
 	}
 
 	@Override
 	public Stage putStage(@NotNull Long stageId, Stage stage) throws Exception {
-		return toStage(stageService.updateStage(stageId, stage.getName(), stage.getDescription(), stage.getPlace()));
+		return toStage(stageService.updateStage(stageId, stage.getName(), stage.getDescription(), stage.getPlace(), stage.getImage()));
 	}
 
 	@Override

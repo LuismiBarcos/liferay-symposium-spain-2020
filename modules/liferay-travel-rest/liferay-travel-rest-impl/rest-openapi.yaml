@@ -18,7 +18,7 @@ components:
                     description: "Place where the stage takes place"
                     type: string
                 image:
-                    description: "Descriptive image in Base64"
+                    description: "Descriptive image of the stage in Base64"
                     type: string
             required:
                 - name
@@ -35,9 +35,15 @@ components:
                 name:
                     description: "Name of the trip. Usually it denotes its purpose"
                     type: string
+                description:
+                        description: "Description of the trip"
+                        type: string
                 starting-date:
                     description: "Starting date of the trip"
                     format: date-time
+                    type: string
+                image:
+                    description: "Descriptive image of the trip in Base64"
                     type: string
                 stages:
                     description: "Stages of the trip"
@@ -119,6 +125,35 @@ paths:
                                 $ref: "#/components/schemas/Trip"
                     description:
                         "Returns the trip with the given identifier"
+            tags: ["Trip"]
+        put:
+            operationId: putTrip
+            parameters:
+                - in: path
+                  name: tripId
+                  required: true
+                  schema:
+                      format: int64
+                      type: integer
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/Trip"
+                    application/xml:
+                        schema:
+                            $ref: "#/components/schemas/Trip"
+            responses:
+                200:
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Trip"
+                        application/xml:
+                            schema:
+                                $ref: "#/components/schemas/Trip"
+                    description:
+                        "Replace the trip with the given identifier"
             tags: ["Trip"]
         delete:
             operationId: deleteTrip
