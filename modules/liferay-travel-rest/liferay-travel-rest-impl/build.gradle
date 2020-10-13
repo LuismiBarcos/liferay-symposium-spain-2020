@@ -27,7 +27,7 @@ dependencies {
 	compileOnly project(":modules:liferay-travel-rest:liferay-travel-rest-api")
 	compileOnly project(":modules:liferay-travel:liferay-travel-api")
 
-	restBuilder group: "com.liferay", name: "com.liferay.portal.tools.rest.builder"
+	restBuilder group: "com.liferay", name: "com.liferay.portal.tools.rest.builder", version: "1.0.114"
 }
 
 group = "liferay.travel.rest"
