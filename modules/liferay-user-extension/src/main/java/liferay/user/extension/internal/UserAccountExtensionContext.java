@@ -14,6 +14,8 @@
 
 package liferay.user.extension.internal;
 
+import com.liferay.headless.admin.user.dto.v1_0.CustomField;
+import com.liferay.headless.admin.user.dto.v1_0.CustomValue;
 import com.liferay.headless.admin.user.dto.v1_0.UserAccount;
 import com.liferay.portal.vulcan.jaxrs.context.EntityExtensionContext;
 import com.liferay.portal.vulcan.jaxrs.context.ExtensionContext;
@@ -21,9 +23,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import javax.ws.rs.ext.ContextResolver;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Javier de Arcos
@@ -32,7 +32,7 @@ import java.util.Set;
         property = {
                 "osgi.jaxrs.application.select=(osgi.jaxrs.name=Liferay.Headless.Admin.User)",
                 "osgi.jaxrs.extension=true",
-                "osgi.jaxrs.name=Liferay.Headless.Admin.User.AvatarExtension"
+                "osgi.jaxrs.name=Liferay.Headless.Admin.User.Github"
         },
         service = ContextResolver.class
 )
@@ -42,8 +42,11 @@ public class UserAccountExtensionContext implements ContextResolver<ExtensionCon
         if (type.isAssignableFrom(UserAccount.class)) {
             return new EntityExtensionContext<UserAccount>() {
                 @Override
-                public Map<String, Object> getEntityExtendedProperties(UserAccount entity) {
-                    return Collections.singletonMap("avatar", adorableAvatarService.getAvatar(entity.getId()));
+                public Map<String, Object> getEntityExtendedProperties(UserAccount userAccount) {
+                    return getGithubName(userAccount)
+                            .map(biographyService::getBiography)
+                            .map(biography -> Collections.singletonMap("biography", (Object) biography))
+                            .orElse(Collections.emptyMap());
                 }
 
                 @Override
@@ -56,6 +59,17 @@ public class UserAccountExtensionContext implements ContextResolver<ExtensionCon
         return null;
     }
 
+    private Optional<String> getGithubName(UserAccount entity) {
+        return Arrays.stream(entity.getCustomFields())
+                .filter(customField -> GITHUB_ACCOUNT_CUSTOM_FIELD_NAME.equalsIgnoreCase(customField.getName()))
+                .findFirst()
+                .map(CustomField::getCustomValue)
+                .map(CustomValue::getData)
+                .map(Object::toString);
+    }
+
     @Reference
-    private AdorableAvatarService adorableAvatarService;
+    private BiographyService biographyService;
+
+    private static final String GITHUB_ACCOUNT_CUSTOM_FIELD_NAME = "Github";
 }

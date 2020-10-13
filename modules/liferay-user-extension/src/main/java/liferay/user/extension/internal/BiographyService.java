@@ -17,6 +17,6 @@ package liferay.user.extension.internal;
 /**
  * @author Javier de Arcos
  */
-public interface AdorableAvatarService {
-    String getAvatar(long id);
+public interface BiographyService {
+    String getBiography(String userId);
 }
