@@ -97,7 +97,7 @@ public class Trip {
 	}
 
 	@GraphQLField(description = "Trip identifier")
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long id;
 
 	@Schema(description = "Descriptive image of the trip in Base64")

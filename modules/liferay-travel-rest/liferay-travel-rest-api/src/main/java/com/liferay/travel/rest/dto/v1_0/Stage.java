@@ -93,7 +93,7 @@ public class Stage {
 	}
 
 	@GraphQLField(description = "Stage identifier")
-	@JsonProperty(access = JsonProperty.Access.READ_WRITE)
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Long id;
 
 	@Schema(description = "Descriptive image of the stage in Base64")

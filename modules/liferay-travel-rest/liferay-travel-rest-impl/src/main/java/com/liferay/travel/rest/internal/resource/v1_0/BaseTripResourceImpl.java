@@ -65,7 +65,7 @@ public abstract class BaseTripResourceImpl implements TripResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/liferay-travel-rest/v1.0/trips' -d $'{"description": ___, "id": ___, "image": ___, "name": ___, "stages": ___, "starting-date": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/liferay-travel-rest/v1.0/trips' -d $'{"description": ___, "image": ___, "name": ___, "stages": ___, "starting-date": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -114,7 +114,7 @@ public abstract class BaseTripResourceImpl implements TripResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/liferay-travel-rest/v1.0/trips/{tripId}' -d $'{"description": ___, "id": ___, "image": ___, "name": ___, "stages": ___, "starting-date": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/liferay-travel-rest/v1.0/trips/{tripId}' -d $'{"description": ___, "image": ___, "name": ___, "stages": ___, "starting-date": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})

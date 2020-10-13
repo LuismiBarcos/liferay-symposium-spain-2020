@@ -69,7 +69,7 @@ public abstract class BaseStageResourceImpl implements StageResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'POST' 'http://localhost:8080/o/liferay-travel-rest/v1.0/trips/{tripId}/stages' -d $'{"description": ___, "id": ___, "image": ___, "name": ___, "place": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'POST' 'http://localhost:8080/o/liferay-travel-rest/v1.0/trips/{tripId}/stages' -d $'{"description": ___, "image": ___, "name": ___, "place": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -125,7 +125,7 @@ public abstract class BaseStageResourceImpl implements StageResource {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -X 'PUT' 'http://localhost:8080/o/liferay-travel-rest/v1.0/stages/{stageId}' -d $'{"description": ___, "id": ___, "image": ___, "name": ___, "place": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+	 * curl -X 'PUT' 'http://localhost:8080/o/liferay-travel-rest/v1.0/stages/{stageId}' -d $'{"description": ___, "image": ___, "name": ___, "place": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})

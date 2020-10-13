@@ -7,6 +7,7 @@ components:
                 id:
                     description: "Stage identifier"
                     format: int64
+                    readOnly: true
                     type: integer
                 name:
                     description: "Name of the stage"
@@ -31,6 +32,7 @@ components:
                 id:
                     description: "Trip identifier"
                     format: int64
+                    readOnly: true
                     type: integer
                 name:
                     description: "Name of the trip. Usually it denotes its purpose"
