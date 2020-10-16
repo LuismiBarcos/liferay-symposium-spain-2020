@@ -4,7 +4,7 @@ create table FOO_Stage (
 	name VARCHAR(75) null,
 	description VARCHAR(75) null,
 	place VARCHAR(75) null,
-	image VARCHAR(75) null,
+	image STRING null,
 	tripId LONG
 );
 
@@ -14,5 +14,5 @@ create table FOO_Trip (
 	name VARCHAR(75) null,
 	description VARCHAR(75) null,
 	startingDate DATE null,
-	image VARCHAR(75) null
+	image STRING null
 );
