@@ -7,7 +7,9 @@
 		<field name="name" type="String" />
 		<field name="description" type="String" />
 		<field name="place" type="String" />
-		<field name="image" type="String" />
+		<field name="image" type="String">
+			<hint name="max-length">4000</hint>
+		</field>
 		<field name="tripId" type="long" />
 	</model>
 	<model name="com.liferay.travel.model.Trip">
@@ -16,6 +18,8 @@
 		<field name="name" type="String" />
 		<field name="description" type="String" />
 		<field name="startingDate" type="Date" />
-		<field name="image" type="String" />
+		<field name="image" type="String">
+			<hint name="max-length">4000</hint>
+		</field>
 	</model>
 </model-hints>
