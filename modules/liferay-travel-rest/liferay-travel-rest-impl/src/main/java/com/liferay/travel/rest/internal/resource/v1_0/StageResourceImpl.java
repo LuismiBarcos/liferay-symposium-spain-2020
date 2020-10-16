@@ -1,5 +1,6 @@
 package com.liferay.travel.rest.internal.resource.v1_0;
 
+import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.travel.rest.dto.v1_0.Stage;
 import com.liferay.travel.rest.resource.v1_0.StageResource;
 
@@ -9,6 +10,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 import javax.validation.constraints.NotNull;
+import java.util.stream.Collectors;
 
 /**
  * @author Javier de Arcos
@@ -22,6 +24,11 @@ public class StageResourceImpl extends BaseStageResourceImpl {
 	@Override
 	public Stage getStage(@NotNull Long stageId) throws Exception {
 		return toStage(stageService.getStage(stageId));
+	}
+
+	@Override
+	public Page<Stage> getTripStagesPage(@NotNull Long tripId) {
+		return Page.of(stageService.getStages(tripId).stream().map(this::toStage).collect(Collectors.toList()));
 	}
 
 	@Override
@@ -42,10 +49,11 @@ public class StageResourceImpl extends BaseStageResourceImpl {
 	private Stage toStage(com.liferay.travel.model.Stage stage) {
 		Stage stageResource = new Stage();
 
-		stage.setName(stage.getName());
-		stage.setDescription(stage.getDescription());
-		stage.setPlace(stage.getPlace());
-
+		stageResource.setId(stage.getStageId());
+		stageResource.setName(stage.getName());
+		stageResource.setDescription(stage.getDescription());
+		stageResource.setPlace(stage.getPlace());
+		stageResource.setImage(stage.getImage());
 		return stageResource;
 	}
 
