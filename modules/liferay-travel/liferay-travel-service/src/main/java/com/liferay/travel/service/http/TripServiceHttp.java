@@ -120,15 +120,18 @@ public class TripServiceHttp {
 	}
 
 	public static com.liferay.travel.model.Trip addTrip(
-		HttpPrincipal httpPrincipal, String name, String description,
-		java.util.Date startingDate, String image) {
+			HttpPrincipal httpPrincipal, String name, String description,
+			java.util.Date startingDate, String image, Long userId,
+			Long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				TripServiceUtil.class, "addTrip", _addTripParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, name, description, startingDate, image);
+				methodKey, name, description, startingDate, image, userId,
+				groupId);
 
 			Object returnObj = null;
 
@@ -136,6 +139,13 @@ public class TripServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(
 					exception);
 			}
@@ -153,7 +163,8 @@ public class TripServiceHttp {
 
 	public static com.liferay.travel.model.Trip updateTrip(
 			HttpPrincipal httpPrincipal, long tripId, String name,
-			String description, java.util.Date startingDate, String image)
+			String description, java.util.Date startingDate, String image,
+			Long userId, Long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -162,7 +173,8 @@ public class TripServiceHttp {
 				_updateTripParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, tripId, name, description, startingDate, image);
+				methodKey, tripId, name, description, startingDate, image,
+				userId, groupId);
 
 			Object returnObj = null;
 
@@ -238,11 +250,12 @@ public class TripServiceHttp {
 		long.class
 	};
 	private static final Class<?>[] _addTripParameterTypes2 = new Class[] {
-		String.class, String.class, java.util.Date.class, String.class
+		String.class, String.class, java.util.Date.class, String.class,
+		Long.class, Long.class
 	};
 	private static final Class<?>[] _updateTripParameterTypes3 = new Class[] {
 		long.class, String.class, String.class, java.util.Date.class,
-		String.class
+		String.class, Long.class, Long.class
 	};
 	private static final Class<?>[] _deleteTripParameterTypes4 = new Class[] {
 		long.class

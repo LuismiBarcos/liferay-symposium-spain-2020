@@ -97,12 +97,12 @@ public class TripServiceSoap {
 
 	public static com.liferay.travel.model.TripSoap addTrip(
 			String name, String description, java.util.Date startingDate,
-			String image)
+			String image, Long userId, Long groupId)
 		throws RemoteException {
 
 		try {
 			com.liferay.travel.model.Trip returnValue = TripServiceUtil.addTrip(
-				name, description, startingDate, image);
+				name, description, startingDate, image, userId, groupId);
 
 			return com.liferay.travel.model.TripSoap.toSoapModel(returnValue);
 		}
@@ -115,13 +115,15 @@ public class TripServiceSoap {
 
 	public static com.liferay.travel.model.TripSoap updateTrip(
 			long tripId, String name, String description,
-			java.util.Date startingDate, String image)
+			java.util.Date startingDate, String image, Long userId,
+			Long groupId)
 		throws RemoteException {
 
 		try {
 			com.liferay.travel.model.Trip returnValue =
 				TripServiceUtil.updateTrip(
-					tripId, name, description, startingDate, image);
+					tripId, name, description, startingDate, image, userId,
+					groupId);
 
 			return com.liferay.travel.model.TripSoap.toSoapModel(returnValue);
 		}
