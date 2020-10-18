@@ -16,6 +16,8 @@ package com.liferay.travel.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.search.Indexable;
+import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.servlet.PortalSessionThreadLocal;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.travel.model.Trip;
@@ -52,6 +54,7 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		return tripPersistence.findByPrimaryKey(tripId);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	public Trip addTrip(String name, String description, Date startingDate, String image, Long userId, Long groupId
 	) throws PortalException {
 		long tripId = counterLocalService.increment();
@@ -68,6 +71,7 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		return tripPersistence.update(newTrip);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	public Trip updateTrip(
 			long tripId, String name, String description, Date startingDate, String image, Long userId, Long groupId
 	) throws PortalException {
@@ -83,6 +87,7 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		return tripPersistence.update(trip);
 	}
 
+	@Indexable(type = IndexableType.DELETE)
 	public Trip deleteTrip(long tripId) throws PortalException {
 		//Asset
 		assetEntryLocalService.deleteEntry(Trip.class.getName(), tripId);
