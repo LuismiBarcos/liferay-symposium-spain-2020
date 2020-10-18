@@ -80,14 +80,21 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {trips{items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {trips(filter: ___, search: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
-	public TripPage trips() throws Exception {
+	public TripPage trips(
+			@GraphQLName("search") String search,
+			@GraphQLName("filter") String filterString)
+		throws Exception {
+
 		return _applyComponentServiceObjects(
 			_tripResourceComponentServiceObjects,
 			this::_populateResourceContext,
-			tripResource -> new TripPage(tripResource.getTripsPage()));
+			tripResource -> new TripPage(
+				tripResource.getTripsPage(
+					search,
+					_filterBiFunction.apply(tripResource, filterString))));
 	}
 
 	/**

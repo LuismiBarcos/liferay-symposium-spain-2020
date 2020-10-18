@@ -1,5 +1,6 @@
 package com.liferay.travel.rest.resource.v1_0;
 
+import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.vulcan.accept.language.AcceptLanguage;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.travel.rest.dto.v1_0.Trip;
@@ -31,7 +32,8 @@ public interface TripResource {
 		return FactoryHolder.factory.create();
 	}
 
-	public Page<Trip> getTripsPage() throws Exception;
+	public Page<Trip> getTripsPage(String search, Filter filter)
+		throws Exception;
 
 	public Trip postTrip(Trip trip) throws Exception;
 
