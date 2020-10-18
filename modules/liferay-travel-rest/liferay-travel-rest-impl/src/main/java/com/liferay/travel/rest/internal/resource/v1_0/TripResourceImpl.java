@@ -1,5 +1,6 @@
 package com.liferay.travel.rest.internal.resource.v1_0;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.travel.rest.dto.v1_0.Trip;
 import com.liferay.travel.rest.resource.v1_0.TripResource;
@@ -32,13 +33,26 @@ public class TripResourceImpl extends BaseTripResourceImpl {
 	}
 
 	@Override
-	public Trip postTrip(Trip trip) {
-		return toTrip(tripService.addTrip(trip.getName(), trip.getDescription(), trip.getStartingDate(), trip.getImage()));
+	public Trip postTrip(Trip trip) throws PortalException {
+		return toTrip(tripService.addTrip(
+			trip.getName(),
+			trip.getDescription(),
+			trip.getStartingDate(),
+			trip.getImage(),
+			contextUser.getUserId(),
+			contextUser.getGroupId()));
 	}
 
 	@Override
 	public Trip putTrip(@NotNull Long tripId, Trip trip) throws Exception {
-		return toTrip(tripService.updateTrip(tripId, trip.getName(), trip.getDescription(), trip.getStartingDate(), trip.getImage()));
+		return toTrip(tripService.updateTrip(
+			tripId,
+			trip.getName(),
+			trip.getDescription(),
+			trip.getStartingDate(),
+			trip.getImage(),
+			contextUser.getUserId(),
+			contextUser.getGroupId()));
 	}
 
 	@Override
