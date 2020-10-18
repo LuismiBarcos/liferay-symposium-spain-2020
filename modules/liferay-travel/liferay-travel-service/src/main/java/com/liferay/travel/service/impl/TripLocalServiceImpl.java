@@ -16,10 +16,10 @@ package com.liferay.travel.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.travel.exception.NoSuchTripException;
+import com.liferay.portal.kernel.servlet.PortalSessionThreadLocal;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.travel.model.Trip;
 import com.liferay.travel.service.base.TripLocalServiceBaseImpl;
-
 import org.osgi.service.component.annotations.Component;
 
 import java.util.Date;
@@ -52,7 +52,8 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		return tripPersistence.findByPrimaryKey(tripId);
 	}
 
-	public Trip addTrip(String name, String description, Date startingDate, String image) {
+	public Trip addTrip(String name, String description, Date startingDate, String image, Long userId, Long groupId
+	) throws PortalException {
 		long tripId = counterLocalService.increment();
 
 		Trip newTrip = tripPersistence.create(tripId);
@@ -61,21 +62,35 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		newTrip.setStartingDate(startingDate);
 		newTrip.setImage(image);
 
+		// Asset
+		updateAsset(userId, groupId, tripId);
+
 		return tripPersistence.update(newTrip);
 	}
 
-	public Trip updateTrip(long tripId, String name, String description, Date startingDate, String image)
-			throws PortalException {
+	public Trip updateTrip(
+			long tripId, String name, String description, Date startingDate, String image, Long userId, Long groupId
+	) throws PortalException {
 		Trip trip = tripPersistence.findByPrimaryKey(tripId);
 		trip.setName(name);
 		trip.setStartingDate(startingDate);
 		trip.setDescription(description);
 		trip.setImage(image);
 
+		// Asset
+		updateAsset(userId, groupId, tripId);
+
 		return tripPersistence.update(trip);
 	}
 
 	public Trip deleteTrip(long tripId) throws PortalException {
+		//Asset
+		assetEntryLocalService.deleteEntry(Trip.class.getName(), tripId);
 		return tripPersistence.remove(tripId);
+	}
+
+	private void updateAsset(Long userId, Long groupId, Long classPK) throws PortalException {
+		assetEntryLocalService.updateEntry(
+				userId, groupId, Trip.class.getName(), classPK, null, null);
 	}
 }
