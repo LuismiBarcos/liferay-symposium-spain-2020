@@ -7,7 +7,6 @@ import com.liferay.travel.constants.TravelsConstants;
 import com.liferay.travel.rest.dto.v1_0.Trip;
 import com.liferay.travel.rest.resource.v1_0.StageResource;
 import com.liferay.travel.rest.resource.v1_0.TripResource;
-
 import com.liferay.travel.service.TripService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
