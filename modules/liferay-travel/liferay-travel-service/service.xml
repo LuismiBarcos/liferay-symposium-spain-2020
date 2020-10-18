@@ -4,7 +4,6 @@
 <service-builder dependency-injector="ds" package-path="com.liferay.travel">
 	<namespace>FOO</namespace>
 	<entity local-service="true" name="Trip" remote-service="true" uuid="true">
-
 		<column name="tripId" primary="true" type="long" />
 		<column name="name" type="String" />
 		<column name="description" type="String" />
@@ -26,6 +25,10 @@
 		<order by="asc">
 			<order-column name="startingDate" />
 		</order>
+		<!-- Entity services needed for the integration to As set framework -->
+		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset"/>
+		<reference entity="AssetLink" package-path="com.liferay.portlet.asset"/>
+		<reference entity="AssetTag" package-path="com.liferay.portlet.asset"/>
 
 		<reference entity="Group" package-path="com.liferay.portal" />
 		<reference entity="User" package-path="com.liferay.portal" />
@@ -55,6 +58,8 @@
 		</finder>
 
 		<reference entity="Trip" package-path="com.liferay.travel" />
+
+		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset"/>
 		<reference entity="Group" package-path="com.liferay.portal" />
 		<reference entity="User" package-path="com.liferay.portal" />
 	</entity>
