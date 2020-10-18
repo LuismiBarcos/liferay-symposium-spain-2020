@@ -86,7 +86,6 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 	public Trip deleteTrip(long tripId) throws PortalException {
 		//Asset
 		assetEntryLocalService.deleteEntry(Trip.class.getName(), tripId);
-		return tripPersistence.remove(tripId);
 		Trip trip = getTrip(tripId);
 
 		resourceLocalService.deleteResource(trip.getCompanyId(), Trip.class.getName(),

@@ -361,11 +361,12 @@ public class TripLocalServiceUtil {
 
 	public static com.liferay.travel.model.Trip updateTrip(
 			long tripId, String name, String description,
-			java.util.Date startingDate, String image)
+			java.util.Date startingDate, String image, Long userId,
+			Long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().updateTrip(
-			tripId, name, description, startingDate, image);
+			tripId, name, description, startingDate, image, userId, groupId);
 	}
 
 	/**

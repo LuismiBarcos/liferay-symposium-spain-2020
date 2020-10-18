@@ -308,7 +308,7 @@ public interface TripLocalService
 
 	public Trip updateTrip(
 			long tripId, String name, String description, Date startingDate,
-			String image)
+			String image, Long userId, Long groupId)
 		throws PortalException;
 
 	/**
