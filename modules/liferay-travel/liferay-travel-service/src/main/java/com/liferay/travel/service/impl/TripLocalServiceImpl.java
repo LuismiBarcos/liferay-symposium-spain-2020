@@ -18,6 +18,8 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.ResourceConstants;
+import com.liferay.portal.kernel.search.Indexable;
+import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.travel.model.Trip;
 import com.liferay.travel.service.base.TripLocalServiceBaseImpl;
 import org.osgi.service.component.annotations.Component;
@@ -48,12 +50,12 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		return tripPersistence.findAll();
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	public Trip addTrip(long groupId, long userId, String name, String description, Date startingDate, String image)
 			throws PortalException {
 
-		Group group = groupLocalService.getGroup(groupId);
-
 		long tripId = counterLocalService.increment();
+		Group group = groupLocalService.getGroup(groupId);
 
 		Trip newTrip = tripPersistence.create(tripId);
 		newTrip.setName(name);
@@ -69,6 +71,7 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		return super.addTrip(newTrip);
 	}
 
+	@Indexable(type = IndexableType.REINDEX)
 	public Trip updateTrip(
 			long tripId, String name, String description, Date startingDate, String image, Long userId, Long groupId
 	) throws PortalException {
@@ -83,6 +86,7 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		return super.updateTrip(trip);
 	}
 
+	@Indexable(type = IndexableType.DELETE)
 	public Trip deleteTrip(long tripId) throws PortalException {
 		//Asset
 		assetEntryLocalService.deleteEntry(Trip.class.getName(), tripId);
@@ -98,5 +102,4 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		assetEntryLocalService.updateEntry(
 				userId, groupId, Trip.class.getName(), classPK, null, null);
 	}
-
 }
