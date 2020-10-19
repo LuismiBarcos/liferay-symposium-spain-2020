@@ -19,11 +19,8 @@ import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermi
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionLogic;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.definition.ModelResourcePermissionDefinition;
-import com.liferay.travel.constants.TravelsConstants;
 import com.liferay.travel.model.Stage;
-import com.liferay.travel.model.Trip;
 import com.liferay.travel.service.StageLocalService;
-import com.liferay.travel.service.TripLocalService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -49,7 +46,7 @@ public class StageModelResourcePermissionDefinition implements ModelResourcePerm
 
     @Override
     public PortletResourcePermission getPortletResourcePermission() {
-        return _portletResourcePermission;
+        return null;
     }
 
     @Override
@@ -64,6 +61,4 @@ public class StageModelResourcePermissionDefinition implements ModelResourcePerm
 
     @Reference
     private StageLocalService _stageLocalService;
-    @Reference(target = "(resource.name=" + TravelsConstants.RESOURCE_NAME + ")")
-    private PortletResourcePermission _portletResourcePermission;
 }

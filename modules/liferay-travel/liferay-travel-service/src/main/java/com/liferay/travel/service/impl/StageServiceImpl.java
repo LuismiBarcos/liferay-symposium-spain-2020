@@ -22,10 +22,7 @@ import com.liferay.travel.constants.TravelsConstants;
 import com.liferay.travel.model.Stage;
 import com.liferay.travel.service.base.StageServiceBaseImpl;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferencePolicy;
-import org.osgi.service.component.annotations.ReferencePolicyOption;
+import org.osgi.service.component.annotations.*;
 
 import java.util.List;
 
@@ -85,7 +82,7 @@ public class StageServiceImpl extends StageServiceBaseImpl {
 	@Reference(
 			policy = ReferencePolicy.DYNAMIC,
 			policyOption = ReferencePolicyOption.GREEDY,
-			target = "(resource.name=" + TravelsConstants.RESOURCE_NAME + ")"
+			target = "(model.class.name=" + TravelsConstants.RESOURCE_NAME + ".Stage)"
 	)
 	private volatile ModelResourcePermission<Stage>
 			_stageModelResourcePermission;

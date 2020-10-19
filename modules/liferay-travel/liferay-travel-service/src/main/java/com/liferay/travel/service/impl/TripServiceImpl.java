@@ -22,10 +22,7 @@ import com.liferay.travel.constants.TravelsConstants;
 import com.liferay.travel.model.Trip;
 import com.liferay.travel.service.base.TripServiceBaseImpl;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.component.annotations.ReferencePolicy;
-import org.osgi.service.component.annotations.ReferencePolicyOption;
+import org.osgi.service.component.annotations.*;
 
 import java.util.Date;
 import java.util.List;
@@ -84,7 +81,7 @@ public class TripServiceImpl extends TripServiceBaseImpl {
 	@Reference(
 			policy = ReferencePolicy.DYNAMIC,
 			policyOption = ReferencePolicyOption.GREEDY,
-			target = "(resource.name=" + TravelsConstants.RESOURCE_NAME + ")"
+			target = "(model.class.name=" + TravelsConstants.RESOURCE_NAME + ".Trip)"
 	)
 	private volatile ModelResourcePermission<Trip>
 			_tripModelResourcePermission;

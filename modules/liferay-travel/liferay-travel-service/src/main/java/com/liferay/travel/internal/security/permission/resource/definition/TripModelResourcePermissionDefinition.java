@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermi
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionLogic;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.definition.ModelResourcePermissionDefinition;
-import com.liferay.travel.constants.TravelsConstants;
 import com.liferay.travel.model.Trip;
 import com.liferay.travel.service.TripLocalService;
 import org.osgi.service.component.annotations.Component;
@@ -47,7 +46,7 @@ public class TripModelResourcePermissionDefinition implements ModelResourcePermi
 
     @Override
     public PortletResourcePermission getPortletResourcePermission() {
-        return _portletResourcePermission;
+        return null;
     }
 
     @Override
@@ -62,6 +61,4 @@ public class TripModelResourcePermissionDefinition implements ModelResourcePermi
 
     @Reference
     private TripLocalService _tripLocalService;
-    @Reference(target = "(resource.name=" + TravelsConstants.RESOURCE_NAME + ")")
-    private PortletResourcePermission _portletResourcePermission;
 }

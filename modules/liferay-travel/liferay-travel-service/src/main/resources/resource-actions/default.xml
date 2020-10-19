@@ -4,6 +4,7 @@
     <model-resource>
         <model-name>com.liferay.travel.model</model-name>
         <portlet-ref></portlet-ref>
+        <root>true</root>
         <permissions>
             <supports>
                 <action-key>ADD_ENTRY</action-key>
