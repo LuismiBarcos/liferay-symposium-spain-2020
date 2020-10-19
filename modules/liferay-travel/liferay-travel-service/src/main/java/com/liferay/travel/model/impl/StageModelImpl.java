@@ -87,7 +87,7 @@ public class StageModelImpl extends BaseModelImpl<Stage> implements StageModel {
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table FOO_Stage (uuid_ VARCHAR(75) null,stageId LONG not null primary key,name VARCHAR(75) null,description VARCHAR(75) null,place VARCHAR(75) null,image VARCHAR(75) null,tripId LONG)";
+		"create table FOO_Stage (uuid_ VARCHAR(75) null,stageId LONG not null primary key,name VARCHAR(75) null,description VARCHAR(75) null,place VARCHAR(75) null,image STRING null,tripId LONG)";
 
 	public static final String TABLE_SQL_DROP = "drop table FOO_Stage";
 

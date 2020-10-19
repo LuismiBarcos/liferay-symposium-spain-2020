@@ -87,7 +87,7 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table FOO_Trip (uuid_ VARCHAR(75) null,tripId LONG not null primary key,name VARCHAR(75) null,description VARCHAR(75) null,startingDate DATE null,image VARCHAR(75) null)";
+		"create table FOO_Trip (uuid_ VARCHAR(75) null,tripId LONG not null primary key,name VARCHAR(75) null,description VARCHAR(75) null,startingDate DATE null,image STRING null)";
 
 	public static final String TABLE_SQL_DROP = "drop table FOO_Trip";
 
