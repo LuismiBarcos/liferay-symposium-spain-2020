@@ -42,7 +42,7 @@ public class TripResourceImpl extends BaseTripResourceImpl implements EntityMode
 	public Page<Trip> getTripsPage(String search, Filter filter) throws Exception {
 		return SearchUtil.search(
 				null, booleanQuery -> {},
-				filter, com.liferay.travel.model.Trip.class, null, null,
+				filter, com.liferay.travel.model.Trip.class, search, null,
 				queryConfig -> queryConfig.setSelectedFieldNames(Field.ENTRY_CLASS_PK),
 				searchContext -> searchContext.setCompanyId(contextCompany.getCompanyId()),
 				null,
