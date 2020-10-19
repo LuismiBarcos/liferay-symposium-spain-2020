@@ -1,5 +1,7 @@
 dependencies {
 	compileOnly group: "com.liferay.portal", name: "release.portal.api"
+	compileOnly group: "com.liferay", name: "com.liferay.portal.search.spi"
+	compileOnly group: "com.liferay", name: "com.liferay.portal.search.api"
 	compileOnly project(":modules:liferay-travel:liferay-travel-api")
 }
 
