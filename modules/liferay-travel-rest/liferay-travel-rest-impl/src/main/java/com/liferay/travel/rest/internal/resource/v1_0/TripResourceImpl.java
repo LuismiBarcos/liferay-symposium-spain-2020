@@ -25,8 +25,8 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 
 import javax.validation.constraints.NotNull;
-import java.util.Map;
 import javax.ws.rs.core.MultivaluedMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -44,6 +44,7 @@ public class TripResourceImpl extends BaseTripResourceImpl implements EntityMode
 				.put("create", addAction("ADD_ENTRY", "postTrip", TravelsConstants.RESOURCE_NAME, contextUser.getGroupId()))
 				.build();
 	}
+	@Override
 	public EntityModel getEntityModel(MultivaluedMap<?, ?> multivaluedMap) throws Exception {
 		return new TripEntityModel();
 	}
@@ -52,7 +53,7 @@ public class TripResourceImpl extends BaseTripResourceImpl implements EntityMode
 	public Page<Trip> getTripsPage(String search, Filter filter) throws Exception {
 		return SearchUtil.search(
 				getTripsActions(), booleanQuery -> {},
-				filter, com.liferay.travel.model.Trip.class, null, null,
+				filter, com.liferay.travel.model.Trip.class, search, null,
 				queryConfig -> queryConfig.setSelectedFieldNames(Field.ENTRY_CLASS_PK),
 				searchContext -> searchContext.setCompanyId(contextCompany.getCompanyId()),
 				null,
