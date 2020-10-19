@@ -28,6 +28,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
+import org.osgi.service.component.annotations.*;
 
 /**
  * Provides the remote service interface for Trip. Methods of this

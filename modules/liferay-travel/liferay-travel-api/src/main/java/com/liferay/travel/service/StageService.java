@@ -27,6 +27,7 @@ import com.liferay.travel.model.Stage;
 import java.util.List;
 
 import org.osgi.annotation.versioning.ProviderType;
+import org.osgi.service.component.annotations.*;
 
 /**
  * Provides the remote service interface for Stage. Methods of this
