@@ -11,6 +11,12 @@
 			<hint name="max-length">4000</hint>
 		</field>
 		<field name="tripId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="companyId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
 	</model>
 	<model name="com.liferay.travel.model.Trip">
 		<field name="uuid" type="String" />
@@ -21,5 +27,11 @@
 		<field name="image" type="String">
 			<hint name="max-length">4000</hint>
 		</field>
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="companyId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
 	</model>
 </model-hints>

@@ -52,7 +52,8 @@ import com.liferay.travel.service.StageServiceUtil;
 public class StageServiceHttp {
 
 	public static java.util.List<com.liferay.travel.model.Stage> getStages(
-		HttpPrincipal httpPrincipal, long tripId) {
+			HttpPrincipal httpPrincipal, long tripId)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
@@ -66,6 +67,13 @@ public class StageServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(
 					exception);
 			}
@@ -120,15 +128,17 @@ public class StageServiceHttp {
 	}
 
 	public static com.liferay.travel.model.Stage addStage(
-		HttpPrincipal httpPrincipal, long tripId, String name,
-		String description, String place, String image) {
+			HttpPrincipal httpPrincipal, long groupId, long userId, long tripId,
+			String name, String description, String place, String image)
+		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				StageServiceUtil.class, "addStage", _addStageParameterTypes2);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, tripId, name, description, place, image);
+				methodKey, groupId, userId, tripId, name, description, place,
+				image);
 
 			Object returnObj = null;
 
@@ -136,6 +146,13 @@ public class StageServiceHttp {
 				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
 			}
 			catch (Exception exception) {
+				if (exception instanceof
+						com.liferay.portal.kernel.exception.PortalException) {
+
+					throw (com.liferay.portal.kernel.exception.PortalException)
+						exception;
+				}
+
 				throw new com.liferay.portal.kernel.exception.SystemException(
 					exception);
 			}
@@ -240,7 +257,8 @@ public class StageServiceHttp {
 		long.class
 	};
 	private static final Class<?>[] _addStageParameterTypes2 = new Class[] {
-		long.class, String.class, String.class, String.class, String.class
+		long.class, long.class, long.class, String.class, String.class,
+		String.class, String.class
 	};
 	private static final Class<?>[] _updateStageParameterTypes3 = new Class[] {
 		long.class, String.class, String.class, String.class, String.class

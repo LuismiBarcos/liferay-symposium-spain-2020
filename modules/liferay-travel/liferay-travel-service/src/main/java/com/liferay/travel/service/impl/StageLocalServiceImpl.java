@@ -16,12 +16,14 @@ package com.liferay.travel.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.travel.exception.NoSuchStageException;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.ResourceConstants;
+import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.travel.model.Stage;
-import com.liferay.travel.model.Trip;
 import com.liferay.travel.service.base.StageLocalServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import java.util.List;
 
@@ -48,11 +50,10 @@ public class StageLocalServiceImpl extends StageLocalServiceBaseImpl {
 		return stagePersistence.findByTripId(tripId);
 	}
 
-	public Stage getStage(long stageId) throws PortalException {
-		return stagePersistence.findByPrimaryKey(stageId);
-	}
+	public Stage addStage(long groupId, long userId, long tripId, String name, String description, String place, String image) throws PortalException {
 
-	public Stage addStage(long tripId, String name, String description, String place, String image) {
+		Group group = _groupLocalService.getGroup(groupId);
+
 		long stageId = counterLocalService.increment();
 
 		Stage newStage = stagePersistence.create(stageId);
@@ -62,7 +63,10 @@ public class StageLocalServiceImpl extends StageLocalServiceBaseImpl {
 		newStage.setImage(image);
 		newStage.setTripId(tripId);
 
-		return stagePersistence.update(newStage);
+		resourceLocalService.addResources(group.getCompanyId(), groupId, userId, Stage.class.getName(), tripId, false,
+				true, true);
+
+		return super.addStage(newStage);
 	}
 
 	public Stage updateStage(long stageId, String name, String description, String place, String image)
@@ -73,10 +77,18 @@ public class StageLocalServiceImpl extends StageLocalServiceBaseImpl {
 		stage.setPlace(place);
 		stage.setImage(image);
 
-		return stagePersistence.update(stage);
+		return super.updateStage(stage);
 	}
 
 	public Stage deleteStage(long stageId) throws PortalException {
-		return stagePersistence.remove(stageId);
+		Stage stage = getStage(stageId);
+
+		resourceLocalService.deleteResource(stage.getCompanyId(), Stage.class.getName(),
+				ResourceConstants.SCOPE_INDIVIDUAL, stageId);
+
+		return super.deleteStage(stageId);
 	}
+
+	@Reference
+	private GroupLocalService _groupLocalService;
 }

@@ -16,7 +16,8 @@ package com.liferay.travel.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.travel.exception.NoSuchTripException;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.travel.model.Trip;
 import com.liferay.travel.service.base.TripLocalServiceBaseImpl;
 
@@ -48,11 +49,11 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		return tripPersistence.findAll();
 	}
 
-	public Trip getTrip(long tripId) throws PortalException {
-		return tripPersistence.findByPrimaryKey(tripId);
-	}
+	public Trip addTrip(long groupId, long userId, String name, String description, Date startingDate, String image)
+			throws PortalException {
 
-	public Trip addTrip(String name, String description, Date startingDate, String image) {
+		Group group = groupLocalService.getGroup(groupId);
+
 		long tripId = counterLocalService.increment();
 
 		Trip newTrip = tripPersistence.create(tripId);
@@ -61,7 +62,10 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		newTrip.setStartingDate(startingDate);
 		newTrip.setImage(image);
 
-		return tripPersistence.update(newTrip);
+		resourceLocalService.addResources(group.getCompanyId(), groupId, userId, Trip.class.getName(), tripId, false,
+				true, true);
+
+		return super.addTrip(newTrip);
 	}
 
 	public Trip updateTrip(long tripId, String name, String description, Date startingDate, String image)
@@ -72,10 +76,16 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		trip.setDescription(description);
 		trip.setImage(image);
 
-		return tripPersistence.update(trip);
+		return super.updateTrip(trip);
 	}
 
 	public Trip deleteTrip(long tripId) throws PortalException {
-		return tripPersistence.remove(tripId);
+		Trip trip = getTrip(tripId);
+
+		resourceLocalService.deleteResource(trip.getCompanyId(), Trip.class.getName(),
+				ResourceConstants.SCOPE_INDIVIDUAL, tripId);
+
+		return super.deleteTrip(trip);
 	}
+
 }

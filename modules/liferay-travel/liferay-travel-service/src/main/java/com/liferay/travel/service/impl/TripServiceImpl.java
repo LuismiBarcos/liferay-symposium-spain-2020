@@ -16,11 +16,16 @@ package com.liferay.travel.service.impl;
 
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.travel.exception.NoSuchTripException;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
+import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
+import com.liferay.travel.constants.TravelsConstants;
 import com.liferay.travel.model.Trip;
 import com.liferay.travel.service.base.TripServiceBaseImpl;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.component.annotations.ReferencePolicyOption;
 
 import java.util.Date;
 import java.util.List;
@@ -52,19 +57,35 @@ public class TripServiceImpl extends TripServiceBaseImpl {
 	}
 
 	public Trip getTrip(long tripId) throws PortalException {
+		_tripModelResourcePermission.check(getPermissionChecker(), tripId, ActionKeys.VIEW);
+
 		return tripLocalService.getTrip(tripId);
 	}
 
-	public Trip addTrip(String name, String description, Date startingDate, String image) {
-		return tripLocalService.addTrip(name, description, startingDate, image);
+	public Trip addTrip(long groupId, long userId, String name, String description, Date startingDate, String image) throws PortalException {
+		_tripModelResourcePermission.check(getPermissionChecker(), groupId, ActionKeys.ADD_ENTRY);
+
+		return tripLocalService.addTrip(groupId, userId, name, description, startingDate, image);
 	}
 
 	public Trip updateTrip(long tripId, String name, String description, Date startingDate, String image)
 			throws PortalException {
+		_tripModelResourcePermission.check(getPermissionChecker(), tripId, ActionKeys.UPDATE);
+
 		return tripLocalService.updateTrip(tripId, name, description, startingDate, image);
 	}
 
 	public Trip deleteTrip(long tripId) throws PortalException {
+		_tripModelResourcePermission.check(getPermissionChecker(), tripId, ActionKeys.DELETE);
+
 		return tripLocalService.deleteTrip(tripId);
 	}
+
+	@Reference(
+			policy = ReferencePolicy.DYNAMIC,
+			policyOption = ReferencePolicyOption.GREEDY,
+			target = "(resource.name=" + TravelsConstants.RESOURCE_NAME + ")"
+	)
+	private volatile ModelResourcePermission<Trip>
+			_tripModelResourcePermission;
 }

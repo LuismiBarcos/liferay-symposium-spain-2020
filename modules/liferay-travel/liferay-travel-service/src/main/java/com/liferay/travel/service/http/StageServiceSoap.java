@@ -96,14 +96,14 @@ public class StageServiceSoap {
 	}
 
 	public static com.liferay.travel.model.StageSoap addStage(
-			long tripId, String name, String description, String place,
-			String image)
+			long groupId, long userId, long tripId, String name,
+			String description, String place, String image)
 		throws RemoteException {
 
 		try {
 			com.liferay.travel.model.Stage returnValue =
 				StageServiceUtil.addStage(
-					tripId, name, description, place, image);
+					groupId, userId, tripId, name, description, place, image);
 
 			return com.liferay.travel.model.StageSoap.toSoapModel(returnValue);
 		}
