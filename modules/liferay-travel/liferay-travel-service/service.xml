@@ -29,6 +29,9 @@
 
 		<reference entity="Group" package-path="com.liferay.portal" />
 		<reference entity="User" package-path="com.liferay.portal" />
+
+		<!-- Entity services needed for the integration to Asset framework -->
+		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset"/>
 	</entity>
 	<entity local-service="true" name="Stage" remote-service="true" uuid="true">
 		<column name="stageId" primary="true" type="long" />
@@ -57,5 +60,8 @@
 		<reference entity="Trip" package-path="com.liferay.travel" />
 		<reference entity="Group" package-path="com.liferay.portal" />
 		<reference entity="User" package-path="com.liferay.portal" />
+
+		<!-- Entity services needed for the integration to As set framework -->
+		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset"/>
 	</entity>
 </service-builder>
