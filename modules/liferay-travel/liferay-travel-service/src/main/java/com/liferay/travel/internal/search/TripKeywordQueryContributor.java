@@ -23,7 +23,7 @@ public class TripKeywordQueryContributor implements KeywordQueryContributor{
     @Override
     public void contribute(String keywords, BooleanQuery booleanQuery, KeywordQueryContributorHelper keywordQueryContributorHelper) {
         SearchContext searchContext = keywordQueryContributorHelper.getSearchContext();
-        queryHelper.addSearchLocalizedTerm(booleanQuery, searchContext, Field.TITLE, true);
+        queryHelper.addSearchTerm(booleanQuery, searchContext, Field.TITLE, true);
         queryHelper.addSearchTerm(booleanQuery, searchContext, Field.DESCRIPTION, true);
     }
 }

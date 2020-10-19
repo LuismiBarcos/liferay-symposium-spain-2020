@@ -4,6 +4,8 @@
 <service-builder dependency-injector="ds" package-path="com.liferay.travel">
 	<namespace>FOO</namespace>
 	<entity local-service="true" name="Trip" remote-service="true" uuid="true">
+		<column name="companyId" type="long" />
+
 		<column name="tripId" primary="true" type="long" />
 		<column name="name" type="String" />
 		<column name="description" type="String" />
