@@ -27,13 +27,14 @@ public class StageResourceImpl extends BaseStageResourceImpl {
 	}
 
 	@Override
-	public Page<Stage> getTripStagesPage(@NotNull Long tripId) {
+	public Page<Stage> getTripStagesPage(@NotNull Long tripId) throws Exception {
 		return Page.of(stageService.getStages(tripId).stream().map(this::toStage).collect(Collectors.toList()));
 	}
 
 	@Override
-	public Stage postTripStage(@NotNull Long tripId, Stage stage) {
-		return toStage(stageService.addStage(tripId, stage.getName(), stage.getDescription(), stage.getPlace(), stage.getImage()));
+	public Stage postTripStage(@NotNull Long tripId, Stage stage) throws Exception {
+		return toStage(stageService.addStage(contextUser.getGroupId(), contextUser.getUserId(), tripId, stage.getName(),
+				stage.getDescription(), stage.getPlace(), stage.getImage()));
 	}
 
 	@Override

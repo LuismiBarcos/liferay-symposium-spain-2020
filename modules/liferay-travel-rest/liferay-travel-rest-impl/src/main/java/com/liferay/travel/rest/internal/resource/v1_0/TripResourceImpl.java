@@ -32,8 +32,9 @@ public class TripResourceImpl extends BaseTripResourceImpl {
 	}
 
 	@Override
-	public Trip postTrip(Trip trip) {
-		return toTrip(tripService.addTrip(trip.getName(), trip.getDescription(), trip.getStartingDate(), trip.getImage()));
+	public Trip postTrip(Trip trip) throws Exception {
+		return toTrip(tripService.addTrip(contextUser.getGroupId(), contextUser.getUserId(),
+				trip.getName(), trip.getDescription(), trip.getStartingDate(), trip.getImage()));
 	}
 
 	@Override
