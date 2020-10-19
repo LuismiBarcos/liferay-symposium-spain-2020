@@ -161,8 +161,9 @@ public class TripServiceHttp {
 	}
 
 	public static com.liferay.travel.model.Trip updateTrip(
-			HttpPrincipal httpPrincipal, long tripId, String name,
-			String description, java.util.Date startingDate, String image)
+			HttpPrincipal httpPrincipal, long groupId, long userId, long tripId,
+			String name, String description, java.util.Date startingDate,
+			String image)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
@@ -171,7 +172,8 @@ public class TripServiceHttp {
 				_updateTripParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(
-				methodKey, tripId, name, description, startingDate, image);
+				methodKey, groupId, userId, tripId, name, description,
+				startingDate, image);
 
 			Object returnObj = null;
 
@@ -251,8 +253,8 @@ public class TripServiceHttp {
 		java.util.Date.class, String.class
 	};
 	private static final Class<?>[] _updateTripParameterTypes3 = new Class[] {
-		long.class, String.class, String.class, java.util.Date.class,
-		String.class
+		long.class, long.class, long.class, String.class, String.class,
+		java.util.Date.class, String.class
 	};
 	private static final Class<?>[] _deleteTripParameterTypes4 = new Class[] {
 		long.class

@@ -63,6 +63,7 @@ public interface TripLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.travel.service.impl.TripLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the trip local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link TripLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	@Indexable(type = IndexableType.REINDEX)
 	public Trip addTrip(
 			long groupId, long userId, String name, String description,
 			Date startingDate, String image)
@@ -306,9 +307,10 @@ public interface TripLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getTripsCount();
 
+	@Indexable(type = IndexableType.REINDEX)
 	public Trip updateTrip(
-			long tripId, String name, String description, Date startingDate,
-			String image)
+			long groupId, long userId, long tripId, String name,
+			String description, Date startingDate, String image)
 		throws PortalException;
 
 	/**
