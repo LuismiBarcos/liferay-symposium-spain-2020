@@ -45,11 +45,6 @@ public class TripModelIndexerWriterContributor implements ModelIndexerWriterCont
 
     @Override
     public long getCompanyId(Trip trip) {
-        try {
-            return CompanyLocalServiceUtil.getCompanyIdByUserId(PrincipalThreadLocal.getUserId());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
+        return trip.getCompanyId();
     }
 }

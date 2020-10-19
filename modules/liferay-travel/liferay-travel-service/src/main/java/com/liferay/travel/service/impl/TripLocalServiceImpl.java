@@ -64,6 +64,7 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		newTrip.setDescription(description);
 		newTrip.setStartingDate(startingDate);
 		newTrip.setImage(image);
+		newTrip.setCompanyId(PortalUtil.getDefaultCompanyId());
 
 		// Asset
 		updateAsset(userId, groupId, tripId);
@@ -80,6 +81,7 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		trip.setStartingDate(startingDate);
 		trip.setDescription(description);
 		trip.setImage(image);
+		trip.setCompanyId(PortalUtil.getDefaultCompanyId());
 
 		// Asset
 		updateAsset(userId, groupId, tripId);
