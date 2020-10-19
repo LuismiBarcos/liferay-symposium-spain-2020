@@ -60,10 +60,12 @@ public class TripCacheModel implements CacheModel<Trip>, Externalizable {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(27);
 
 		sb.append("{uuid=");
 		sb.append(uuid);
+		sb.append(", companyId=");
+		sb.append(companyId);
 		sb.append(", tripId=");
 		sb.append(tripId);
 		sb.append(", name=");
@@ -102,6 +104,7 @@ public class TripCacheModel implements CacheModel<Trip>, Externalizable {
 			tripImpl.setUuid(uuid);
 		}
 
+		tripImpl.setCompanyId(companyId);
 		tripImpl.setTripId(tripId);
 
 		if (name == null) {
@@ -167,6 +170,8 @@ public class TripCacheModel implements CacheModel<Trip>, Externalizable {
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
 
+		companyId = objectInput.readLong();
+
 		tripId = objectInput.readLong();
 		name = objectInput.readUTF();
 		description = objectInput.readUTF();
@@ -191,6 +196,8 @@ public class TripCacheModel implements CacheModel<Trip>, Externalizable {
 		else {
 			objectOutput.writeUTF(uuid);
 		}
+
+		objectOutput.writeLong(companyId);
 
 		objectOutput.writeLong(tripId);
 
@@ -234,6 +241,7 @@ public class TripCacheModel implements CacheModel<Trip>, Externalizable {
 	}
 
 	public String uuid;
+	public long companyId;
 	public long tripId;
 	public String name;
 	public String description;

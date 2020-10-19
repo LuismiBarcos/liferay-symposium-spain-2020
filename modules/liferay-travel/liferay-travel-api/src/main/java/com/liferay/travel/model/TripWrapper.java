@@ -43,6 +43,7 @@ public class TripWrapper
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("uuid", getUuid());
+		attributes.put("companyId", getCompanyId());
 		attributes.put("tripId", getTripId());
 		attributes.put("name", getName());
 		attributes.put("description", getDescription());
@@ -64,6 +65,12 @@ public class TripWrapper
 
 		if (uuid != null) {
 			setUuid(uuid);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
 		}
 
 		Long tripId = (Long)attributes.get("tripId");

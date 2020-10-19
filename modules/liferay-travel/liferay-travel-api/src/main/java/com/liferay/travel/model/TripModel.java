@@ -77,6 +77,22 @@ public interface TripModel
 	public void setUuid(String uuid);
 
 	/**
+	 * Returns the company ID of this trip.
+	 *
+	 * @return the company ID of this trip
+	 */
+	@Override
+	public long getCompanyId();
+
+	/**
+	 * Sets the company ID of this trip.
+	 *
+	 * @param companyId the company ID of this trip
+	 */
+	@Override
+	public void setCompanyId(long companyId);
+
+	/**
 	 * Returns the trip ID of this trip.
 	 *
 	 * @return the trip ID of this trip

@@ -74,12 +74,13 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 	public static final String TABLE_NAME = "FOO_Trip";
 
 	public static final Object[][] TABLE_COLUMNS = {
-		{"uuid_", Types.VARCHAR}, {"tripId", Types.BIGINT},
-		{"name", Types.VARCHAR}, {"description", Types.VARCHAR},
-		{"startingDate", Types.TIMESTAMP}, {"image", Types.VARCHAR},
-		{"groupId", Types.BIGINT}, {"userId", Types.BIGINT},
-		{"userName", Types.VARCHAR}, {"companyId", Types.BIGINT},
-		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP}
+		{"uuid_", Types.VARCHAR}, {"companyId", Types.BIGINT},
+		{"tripId", Types.BIGINT}, {"name", Types.VARCHAR},
+		{"description", Types.VARCHAR}, {"startingDate", Types.TIMESTAMP},
+		{"image", Types.VARCHAR}, {"groupId", Types.BIGINT},
+		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
+		{"companyId", Types.BIGINT}, {"createDate", Types.TIMESTAMP},
+		{"modifiedDate", Types.TIMESTAMP}
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -87,6 +88,7 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 
 	static {
 		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("tripId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
@@ -101,7 +103,7 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 	}
 
 	public static final String TABLE_SQL_CREATE =
-		"create table FOO_Trip (uuid_ VARCHAR(75) null,tripId LONG not null primary key,name VARCHAR(75) null,description VARCHAR(75) null,startingDate DATE null,image STRING null,groupId LONG,userId LONG,userName VARCHAR(75) null,companyId LONG,createDate DATE null,modifiedDate DATE null)";
+		"create table FOO_Trip (uuid_ VARCHAR(75) null,companyId LONG,tripId LONG not null primary key,name VARCHAR(75) null,description VARCHAR(75) null,startingDate DATE null,image STRING null,groupId LONG,userId LONG,userName VARCHAR(75) null,companyId LONG,createDate DATE null,modifiedDate DATE null)";
 
 	public static final String TABLE_SQL_DROP = "drop table FOO_Trip";
 
@@ -155,6 +157,7 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 		Trip model = new TripImpl();
 
 		model.setUuid(soapModel.getUuid());
+		model.setCompanyId(soapModel.getCompanyId());
 		model.setTripId(soapModel.getTripId());
 		model.setName(soapModel.getName());
 		model.setDescription(soapModel.getDescription());
@@ -313,6 +316,9 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 		attributeGetterFunctions.put("uuid", Trip::getUuid);
 		attributeSetterBiConsumers.put(
 			"uuid", (BiConsumer<Trip, String>)Trip::setUuid);
+		attributeGetterFunctions.put("companyId", Trip::getCompanyId);
+		attributeSetterBiConsumers.put(
+			"companyId", (BiConsumer<Trip, Long>)Trip::setCompanyId);
 		attributeGetterFunctions.put("tripId", Trip::getTripId);
 		attributeSetterBiConsumers.put(
 			"tripId", (BiConsumer<Trip, Long>)Trip::setTripId);
@@ -377,6 +383,29 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 
 	public String getOriginalUuid() {
 		return GetterUtil.getString(_originalUuid);
+	}
+
+	@JSON
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCompanyId) {
+			_setOriginalCompanyId = true;
+
+			_originalCompanyId = _companyId;
+		}
+
+		_companyId = companyId;
+	}
+
+	public long getOriginalCompanyId() {
+		return _originalCompanyId;
 	}
 
 	@JSON
@@ -525,19 +554,7 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 
 	@Override
 	public void setCompanyId(long companyId) {
-		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
-
-		if (!_setOriginalCompanyId) {
-			_setOriginalCompanyId = true;
-
-			_originalCompanyId = _companyId;
-		}
-
 		_companyId = companyId;
-	}
-
-	public long getOriginalCompanyId() {
-		return _originalCompanyId;
 	}
 
 	@JSON
@@ -611,6 +628,7 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 		TripImpl tripImpl = new TripImpl();
 
 		tripImpl.setUuid(getUuid());
+		tripImpl.setCompanyId(getCompanyId());
 		tripImpl.setTripId(getTripId());
 		tripImpl.setName(getName());
 		tripImpl.setDescription(getDescription());
@@ -692,13 +710,13 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 
 		tripModelImpl._originalUuid = tripModelImpl._uuid;
 
-		tripModelImpl._originalGroupId = tripModelImpl._groupId;
-
-		tripModelImpl._setOriginalGroupId = false;
-
 		tripModelImpl._originalCompanyId = tripModelImpl._companyId;
 
 		tripModelImpl._setOriginalCompanyId = false;
+
+		tripModelImpl._originalGroupId = tripModelImpl._groupId;
+
+		tripModelImpl._setOriginalGroupId = false;
 
 		tripModelImpl._setModifiedDate = false;
 
@@ -716,6 +734,8 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 		if ((uuid != null) && (uuid.length() == 0)) {
 			tripCacheModel.uuid = null;
 		}
+
+		tripCacheModel.companyId = getCompanyId();
 
 		tripCacheModel.tripId = getTripId();
 
@@ -857,6 +877,9 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 
 	private String _uuid;
 	private String _originalUuid;
+	private long _companyId;
+	private long _originalCompanyId;
+	private boolean _setOriginalCompanyId;
 	private long _tripId;
 	private String _name;
 	private String _description;
@@ -868,8 +891,6 @@ public class TripModelImpl extends BaseModelImpl<Trip> implements TripModel {
 	private long _userId;
 	private String _userName;
 	private long _companyId;
-	private long _originalCompanyId;
-	private boolean _setOriginalCompanyId;
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;

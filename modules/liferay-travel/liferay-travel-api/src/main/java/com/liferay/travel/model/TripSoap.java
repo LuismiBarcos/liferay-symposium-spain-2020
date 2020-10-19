@@ -34,6 +34,7 @@ public class TripSoap implements Serializable {
 		TripSoap soapModel = new TripSoap();
 
 		soapModel.setUuid(model.getUuid());
+		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setTripId(model.getTripId());
 		soapModel.setName(model.getName());
 		soapModel.setDescription(model.getDescription());
@@ -103,6 +104,14 @@ public class TripSoap implements Serializable {
 
 	public void setUuid(String uuid) {
 		_uuid = uuid;
+	}
+
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
 	}
 
 	public long getTripId() {
@@ -194,6 +203,7 @@ public class TripSoap implements Serializable {
 	}
 
 	private String _uuid;
+	private long _companyId;
 	private long _tripId;
 	private String _name;
 	private String _description;

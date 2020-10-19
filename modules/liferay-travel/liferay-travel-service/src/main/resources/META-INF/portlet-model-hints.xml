@@ -20,6 +20,7 @@
 	</model>
 	<model name="com.liferay.travel.model.Trip">
 		<field name="uuid" type="String" />
+		<field name="companyId" type="long" />
 		<field name="tripId" type="long" />
 		<field name="name" type="String" />
 		<field name="description" type="String" />
