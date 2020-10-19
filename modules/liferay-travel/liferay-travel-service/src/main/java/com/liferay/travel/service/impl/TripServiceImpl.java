@@ -65,11 +65,11 @@ public class TripServiceImpl extends TripServiceBaseImpl {
 		return tripLocalService.addTrip(groupId, userId, name, description, startingDate, image);
 	}
 
-	public Trip updateTrip(long tripId, String name, String description, Date startingDate, String image)
+	public Trip updateTrip(long groupId, long userId, long tripId, String name, String description, Date startingDate, String image)
 			throws PortalException {
 		_tripModelResourcePermission.check(getPermissionChecker(), tripId, ActionKeys.UPDATE);
 
-		return tripLocalService.updateTrip(tripId, name, description, startingDate, image);
+		return tripLocalService.updateTrip(groupId, userId, tripId, name, description, startingDate, image);
 	}
 
 	public Trip deleteTrip(long tripId) throws PortalException {

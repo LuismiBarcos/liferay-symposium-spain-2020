@@ -65,10 +65,13 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		resourceLocalService.addResources(group.getCompanyId(), groupId, userId, Trip.class.getName(), tripId, false,
 				true, true);
 
+		// Asset
+		updateAsset(userId, groupId, tripId);
+
 		return super.addTrip(newTrip);
 	}
 
-	public Trip updateTrip(long tripId, String name, String description, Date startingDate, String image)
+	public Trip updateTrip(long groupId, long userId, long tripId, String name, String description, Date startingDate, String image)
 			throws PortalException {
 		Trip trip = tripPersistence.findByPrimaryKey(tripId);
 		trip.setName(name);
@@ -76,6 +79,8 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		trip.setDescription(description);
 		trip.setImage(image);
 
+		// Asset
+		updateAsset(userId, groupId, tripId);
 		return super.updateTrip(trip);
 	}
 
@@ -85,7 +90,14 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		resourceLocalService.deleteResource(trip.getCompanyId(), Trip.class.getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, tripId);
 
+		//Asset
+		assetEntryLocalService.deleteEntry(Trip.class.getName(), tripId);
+
 		return super.deleteTrip(trip);
 	}
 
+	private void updateAsset(Long userId, Long groupId, Long classPK) throws PortalException {
+		assetEntryLocalService.updateEntry(
+				userId, groupId, Trip.class.getName(), classPK, null, null);
+	}
 }
