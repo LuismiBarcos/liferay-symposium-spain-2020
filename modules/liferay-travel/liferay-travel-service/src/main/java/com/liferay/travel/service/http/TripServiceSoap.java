@@ -114,14 +114,15 @@ public class TripServiceSoap {
 	}
 
 	public static com.liferay.travel.model.TripSoap updateTrip(
-			long tripId, String name, String description,
-			java.util.Date startingDate, String image)
+			long groupId, long userId, long tripId, String name,
+			String description, java.util.Date startingDate, String image)
 		throws RemoteException {
 
 		try {
 			com.liferay.travel.model.Trip returnValue =
 				TripServiceUtil.updateTrip(
-					tripId, name, description, startingDate, image);
+					groupId, userId, tripId, name, description, startingDate,
+					image);
 
 			return com.liferay.travel.model.TripSoap.toSoapModel(returnValue);
 		}

@@ -74,8 +74,8 @@ public interface TripService extends BaseService {
 	public List<Trip> getTrips();
 
 	public Trip updateTrip(
-			long tripId, String name, String description, Date startingDate,
-			String image)
+			long groupId, long userId, long tripId, String name,
+			String description, Date startingDate, String image)
 		throws PortalException;
 
 }

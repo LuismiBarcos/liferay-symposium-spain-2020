@@ -71,12 +71,12 @@ public class TripServiceWrapper
 
 	@Override
 	public com.liferay.travel.model.Trip updateTrip(
-			long tripId, String name, String description,
-			java.util.Date startingDate, String image)
+			long groupId, long userId, long tripId, String name,
+			String description, java.util.Date startingDate, String image)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _tripService.updateTrip(
-			tripId, name, description, startingDate, image);
+			groupId, userId, tripId, name, description, startingDate, image);
 	}
 
 	@Override
