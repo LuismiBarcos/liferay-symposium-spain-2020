@@ -225,6 +225,18 @@ public abstract class TripLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the trip with the matching UUID and company.
+	 *
+	 * @param uuid the trip's UUID
+	 * @param companyId the primary key of the company
+	 * @return the matching trip, or <code>null</code> if a matching trip could not be found
+	 */
+	@Override
+	public Trip fetchTripByUuidAndCompanyId(String uuid, long companyId) {
+		return tripPersistence.fetchByUuid_C_First(uuid, companyId, null);
+	}
+
+	/**
 	 * Returns the trip with the primary key.
 	 *
 	 * @param tripId the primary key of the trip
@@ -307,6 +319,21 @@ public abstract class TripLocalServiceBaseImpl
 		throws PortalException {
 
 		return tripPersistence.findByPrimaryKey(primaryKeyObj);
+	}
+
+	/**
+	 * Returns the trip with the matching UUID and company.
+	 *
+	 * @param uuid the trip's UUID
+	 * @param companyId the primary key of the company
+	 * @return the matching trip
+	 * @throws PortalException if a matching trip could not be found
+	 */
+	@Override
+	public Trip getTripByUuidAndCompanyId(String uuid, long companyId)
+		throws PortalException {
+
+		return tripPersistence.findByUuid_C_First(uuid, companyId, null);
 	}
 
 	/**

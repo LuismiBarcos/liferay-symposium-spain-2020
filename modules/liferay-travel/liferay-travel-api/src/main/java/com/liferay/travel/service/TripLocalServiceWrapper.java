@@ -219,6 +219,20 @@ public class TripLocalServiceWrapper
 		return _tripLocalService.fetchTrip(tripId);
 	}
 
+	/**
+	 * Returns the trip with the matching UUID and company.
+	 *
+	 * @param uuid the trip's UUID
+	 * @param companyId the primary key of the company
+	 * @return the matching trip, or <code>null</code> if a matching trip could not be found
+	 */
+	@Override
+	public com.liferay.travel.model.Trip fetchTripByUuidAndCompanyId(
+		String uuid, long companyId) {
+
+		return _tripLocalService.fetchTripByUuidAndCompanyId(uuid, companyId);
+	}
+
 	@Override
 	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
 		getActionableDynamicQuery() {
@@ -266,6 +280,22 @@ public class TripLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _tripLocalService.getTrip(tripId);
+	}
+
+	/**
+	 * Returns the trip with the matching UUID and company.
+	 *
+	 * @param uuid the trip's UUID
+	 * @param companyId the primary key of the company
+	 * @return the matching trip
+	 * @throws PortalException if a matching trip could not be found
+	 */
+	@Override
+	public com.liferay.travel.model.Trip getTripByUuidAndCompanyId(
+			String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _tripLocalService.getTripByUuidAndCompanyId(uuid, companyId);
 	}
 
 	@Override

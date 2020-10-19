@@ -16,6 +16,7 @@ package com.liferay.travel.model;
 
 import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.model.ShardedModel;
 
 import java.util.Date;
 
@@ -33,7 +34,7 @@ import org.osgi.annotation.versioning.ProviderType;
  * @generated
  */
 @ProviderType
-public interface TripModel extends BaseModel<Trip> {
+public interface TripModel extends BaseModel<Trip>, ShardedModel {
 
 	/*
 	 * NOTE FOR DEVELOPERS:
@@ -69,6 +70,22 @@ public interface TripModel extends BaseModel<Trip> {
 	 * @param uuid the uuid of this trip
 	 */
 	public void setUuid(String uuid);
+
+	/**
+	 * Returns the company ID of this trip.
+	 *
+	 * @return the company ID of this trip
+	 */
+	@Override
+	public long getCompanyId();
+
+	/**
+	 * Sets the company ID of this trip.
+	 *
+	 * @param companyId the company ID of this trip
+	 */
+	@Override
+	public void setCompanyId(long companyId);
 
 	/**
 	 * Returns the trip ID of this trip.

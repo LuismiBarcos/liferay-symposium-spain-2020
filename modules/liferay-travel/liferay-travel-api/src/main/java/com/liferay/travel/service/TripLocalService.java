@@ -198,6 +198,16 @@ public interface TripLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Trip fetchTrip(long tripId);
 
+	/**
+	 * Returns the trip with the matching UUID and company.
+	 *
+	 * @param uuid the trip's UUID
+	 * @param companyId the primary key of the company
+	 * @return the matching trip, or <code>null</code> if a matching trip could not be found
+	 */
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Trip fetchTripByUuidAndCompanyId(String uuid, long companyId);
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
@@ -228,6 +238,18 @@ public interface TripLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Trip getTrip(long tripId) throws PortalException;
+
+	/**
+	 * Returns the trip with the matching UUID and company.
+	 *
+	 * @param uuid the trip's UUID
+	 * @param companyId the primary key of the company
+	 * @return the matching trip
+	 * @throws PortalException if a matching trip could not be found
+	 */
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Trip getTripByUuidAndCompanyId(String uuid, long companyId)
+		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Trip> getTrips();
