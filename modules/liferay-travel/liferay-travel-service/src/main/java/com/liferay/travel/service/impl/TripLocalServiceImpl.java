@@ -59,10 +59,13 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 
 		Trip newTrip = tripPersistence.create(tripId);
 
-		newTrip.setName(name);
+		newTrip.setCompanyId(group.getCompanyId());
 		newTrip.setDescription(description);
-		newTrip.setStartingDate(startingDate);
+		newTrip.setGroupId(groupId);
 		newTrip.setImage(image);
+		newTrip.setName(name);
+		newTrip.setStartingDate(startingDate);
+		newTrip.setUserId(userId);
 
 		resourceLocalService.addResources(
 			group.getCompanyId(), groupId, userId, Trip.class.getName(), tripId,

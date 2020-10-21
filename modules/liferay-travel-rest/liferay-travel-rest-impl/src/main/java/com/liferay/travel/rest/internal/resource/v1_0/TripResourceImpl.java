@@ -14,7 +14,6 @@ import com.liferay.portal.vulcan.util.SearchUtil;
 import com.liferay.travel.constants.TravelsConstants;
 import com.liferay.travel.rest.dto.v1_0.Trip;
 import com.liferay.travel.rest.internal.odata.entity.v1_0.TripEntityModel;
-import com.liferay.travel.rest.resource.v1_0.StageResource;
 import com.liferay.travel.rest.resource.v1_0.TripResource;
 
 import com.liferay.travel.service.TripService;
@@ -25,7 +24,6 @@ import org.osgi.service.component.annotations.ServiceScope;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.core.MultivaluedMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * @author Javier de Arcos
@@ -44,7 +42,7 @@ public class TripResourceImpl extends BaseTripResourceImpl implements EntityMode
 	@Override
 	public Page<Trip> getTripsPage(String search, Filter filter, Pagination pagination, Sort[] sorts) throws Exception {
 		return SearchUtil.search(
-				null, booleanQuery -> {},
+				_getTripsActions(), booleanQuery -> {},
 				filter, com.liferay.travel.model.Trip.class, search, null,
 				queryConfig -> queryConfig.setSelectedFieldNames(Field.ENTRY_CLASS_PK),
 				searchContext -> searchContext.setCompanyId(contextCompany.getCompanyId()),
@@ -52,7 +50,7 @@ public class TripResourceImpl extends BaseTripResourceImpl implements EntityMode
 				document -> toTrip(tripService.getTrip(GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK)))));
 	}
 
-	private Map<String, Map<String, String>> getTripsActions() {
+	private Map<String, Map<String, String>> _getTripsActions() {
 		return HashMapBuilder
 				.put("get", addAction("VIEW", "getTripsPage", TravelsConstants.RESOURCE_NAME, contextUser.getGroupId()))
 				.put("create", addAction("ADD_ENTRY", "postTrip", TravelsConstants.RESOURCE_NAME, contextUser.getGroupId()))
