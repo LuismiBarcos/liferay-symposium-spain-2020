@@ -14,11 +14,14 @@
 
 package com.liferay.travel.internal.security.permission.resource.definition;
 
+import com.liferay.exportimport.kernel.staging.permission.StagingPermission;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionLogic;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
+import com.liferay.portal.kernel.security.permission.resource.StagedModelPermissionLogic;
 import com.liferay.portal.kernel.security.permission.resource.definition.ModelResourcePermissionDefinition;
+import com.liferay.travel.constants.TravelsConstants;
 import com.liferay.travel.model.Trip;
 import com.liferay.travel.service.TripLocalService;
 import org.osgi.service.component.annotations.Component;
@@ -46,7 +49,7 @@ public class TripModelResourcePermissionDefinition implements ModelResourcePermi
 
     @Override
     public PortletResourcePermission getPortletResourcePermission() {
-        return null;
+        return _portletResourcePermission;
     }
 
     @Override
@@ -57,8 +60,20 @@ public class TripModelResourcePermissionDefinition implements ModelResourcePermi
     @Override
     public void registerModelResourcePermissionLogics(
             ModelResourcePermission<Trip> modelResourcePermission,
-            Consumer<ModelResourcePermissionLogic<Trip>> modelResourcePermissionLogicConsumer) { }
+            Consumer<ModelResourcePermissionLogic<Trip>> modelResourcePermissionLogicConsumer) {
+        modelResourcePermissionLogicConsumer.accept(
+                new StagedModelPermissionLogic<>(
+                        _stagingPermission,
+                        "com_liferay_travel_web_TravelPortlet",
+                        Trip::getTripId));
+    }
 
     @Reference
     private TripLocalService _tripLocalService;
+
+    @Reference(target = "(resource.name=" + TravelsConstants.RESOURCE_NAME + ")")
+    private PortletResourcePermission _portletResourcePermission;
+
+    @Reference
+    private StagingPermission _stagingPermission;
 }

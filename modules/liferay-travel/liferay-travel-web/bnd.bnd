@@ -1,0 +1,4 @@
+Bundle-Name: liferay-travel-web
+Bundle-SymbolicName: com.liferay.travel.web
+Bundle-Version: 1.0.0
+Export-Package: com.liferay.travel.web.constants

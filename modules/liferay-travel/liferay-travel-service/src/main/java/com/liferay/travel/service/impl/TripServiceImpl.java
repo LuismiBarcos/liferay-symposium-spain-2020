@@ -18,6 +18,7 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
+import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.travel.constants.TravelsConstants;
 import com.liferay.travel.model.Trip;
 import com.liferay.travel.service.base.TripServiceBaseImpl;
@@ -60,7 +61,7 @@ public class TripServiceImpl extends TripServiceBaseImpl {
 	}
 
 	public Trip addTrip(long groupId, long userId, String name, String description, Date startingDate, String image) throws PortalException {
-		_tripModelResourcePermission.check(getPermissionChecker(), groupId, ActionKeys.ADD_ENTRY);
+		_portletResourcePermission.check(getPermissionChecker(), groupId, ActionKeys.ADD_ENTRY);
 
 		return tripLocalService.addTrip(groupId, userId, name, description, startingDate, image);
 	}
@@ -85,4 +86,11 @@ public class TripServiceImpl extends TripServiceBaseImpl {
 	)
 	private volatile ModelResourcePermission<Trip>
 			_tripModelResourcePermission;
+
+	@Reference(
+			policy = ReferencePolicy.DYNAMIC,
+			policyOption = ReferencePolicyOption.GREEDY,
+			target = "(resource.name=" + TravelsConstants.RESOURCE_NAME + ")"
+	)
+	private volatile PortletResourcePermission _portletResourcePermission;
 }
