@@ -1,4 +1,4 @@
-package com.liferay.travel.internal.search;
+package com.liferay.travel.internal.search.spi.model.index.contributor;
 
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
@@ -14,7 +14,7 @@ import org.osgi.service.component.annotations.Component;
         property = "indexer.class.name=com.liferay.travel.model.Trip",
         service = ModelDocumentContributor.class
 )
-public class TripEntryModelDocumentContributor implements ModelDocumentContributor<Trip> {
+public class TripModelDocumentContributor implements ModelDocumentContributor<Trip> {
     @Override
     public void contribute(Document document, Trip trip) {
         document.addText(Field.NAME, trip.getName());

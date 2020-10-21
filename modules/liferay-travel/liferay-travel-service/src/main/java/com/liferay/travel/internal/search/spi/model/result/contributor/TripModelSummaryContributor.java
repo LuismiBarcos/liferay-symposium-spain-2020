@@ -1,4 +1,4 @@
-package com.liferay.travel.internal.search;
+package com.liferay.travel.internal.search.spi.model.result.contributor;
 
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.search.Document;

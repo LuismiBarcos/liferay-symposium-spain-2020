@@ -1,4 +1,4 @@
-package com.liferay.travel.internal.search;
+package com.liferay.travel.internal.search.spi.model.index.contributor;
 
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
