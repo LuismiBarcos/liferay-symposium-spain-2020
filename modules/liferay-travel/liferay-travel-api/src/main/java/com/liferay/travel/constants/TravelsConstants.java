@@ -18,5 +18,7 @@ package com.liferay.travel.constants;
  * @author Javier de Arcos
  */
 public class TravelsConstants {
-    public static final String RESOURCE_NAME = "com.liferay.travel.model";
+
+	public static final String RESOURCE_NAME = "com.liferay.travel.model";
+
 }

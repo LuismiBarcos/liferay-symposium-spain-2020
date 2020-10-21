@@ -24,56 +24,60 @@ import com.liferay.portal.kernel.security.permission.resource.definition.ModelRe
 import com.liferay.travel.constants.TravelsConstants;
 import com.liferay.travel.model.Stage;
 import com.liferay.travel.service.StageLocalService;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.function.Consumer;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Javier de Arcos
  */
-@Component(
-        immediate = true,
-        service = ModelResourcePermissionDefinition.class
-)
-public class StageModelResourcePermissionDefinition implements ModelResourcePermissionDefinition<Stage> {
-    @Override
-    public Stage getModel(long primaryKey) throws PortalException {
-        return _stageLocalService.getStage(primaryKey);
-    }
+@Component(immediate = true, service = ModelResourcePermissionDefinition.class)
+public class StageModelResourcePermissionDefinition
+	implements ModelResourcePermissionDefinition<Stage> {
 
-    @Override
-    public Class<Stage> getModelClass() {
-        return Stage.class;
-    }
+	@Override
+	public Stage getModel(long primaryKey) throws PortalException {
+		return _stageLocalService.getStage(primaryKey);
+	}
 
-    @Override
-    public PortletResourcePermission getPortletResourcePermission() {
-        return _portletResourcePermission;
-    }
+	@Override
+	public Class<Stage> getModelClass() {
+		return Stage.class;
+	}
 
-    @Override
-    public long getPrimaryKey(Stage stage) {
-        return stage.getStageId();
-    }
+	@Override
+	public PortletResourcePermission getPortletResourcePermission() {
+		return _portletResourcePermission;
+	}
 
-    @Override
-    public void registerModelResourcePermissionLogics(
-            ModelResourcePermission<Stage> modelResourcePermission,
-            Consumer<ModelResourcePermissionLogic<Stage>> modelResourcePermissionLogicConsumer) {
-        modelResourcePermissionLogicConsumer.accept(
-                new StagedModelPermissionLogic<>(
-                        _stagingPermission,
-                        "com_liferay_travel_web_TravelPortlet",
-                        Stage::getStageId));
-    }
+	@Override
+	public long getPrimaryKey(Stage stage) {
+		return stage.getStageId();
+	}
 
-    @Reference
-    private StageLocalService _stageLocalService;
+	@Override
+	public void registerModelResourcePermissionLogics(
+		ModelResourcePermission<Stage> modelResourcePermission,
+		Consumer<ModelResourcePermissionLogic<Stage>>
+			modelResourcePermissionLogicConsumer) {
 
-    @Reference(target = "(resource.name=" + TravelsConstants.RESOURCE_NAME + ")")
-    private PortletResourcePermission _portletResourcePermission;
+		modelResourcePermissionLogicConsumer.accept(
+			new StagedModelPermissionLogic<>(
+				_stagingPermission, "com_liferay_travel_web_TravelPortlet",
+				Stage::getStageId));
+	}
 
-    @Reference
-    private StagingPermission _stagingPermission;
+	@Reference(
+		target = "(resource.name=" + TravelsConstants.RESOURCE_NAME + ")"
+	)
+	private PortletResourcePermission _portletResourcePermission;
+
+	@Reference
+	private StageLocalService _stageLocalService;
+
+	@Reference
+	private StagingPermission _stagingPermission;
+
 }

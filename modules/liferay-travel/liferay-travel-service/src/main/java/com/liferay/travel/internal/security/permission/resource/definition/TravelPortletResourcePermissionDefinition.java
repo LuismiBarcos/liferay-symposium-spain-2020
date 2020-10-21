@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.security.permission.resource.PortletResourcePer
 import com.liferay.portal.kernel.security.permission.resource.StagedPortletPermissionLogic;
 import com.liferay.portal.kernel.security.permission.resource.definition.PortletResourcePermissionDefinition;
 import com.liferay.travel.constants.TravelsConstants;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -26,24 +27,27 @@ import org.osgi.service.component.annotations.Reference;
  * @author Javier de Arcos
  */
 @Component(
-        immediate = true,
-        service = PortletResourcePermissionDefinition.class
+	immediate = true, service = PortletResourcePermissionDefinition.class
 )
-public class TravelPortletResourcePermissionDefinition implements PortletResourcePermissionDefinition {
-    @Override
-    public PortletResourcePermissionLogic[] getPortletResourcePermissionLogics() {
-        return new PortletResourcePermissionLogic[] {
-                new StagedPortletPermissionLogic(
-                        _stagingPermission,
-                        "com_liferay_travel_web_TravelPortlet")
-        };
-    }
+public class TravelPortletResourcePermissionDefinition
+	implements PortletResourcePermissionDefinition {
 
-    @Override
-    public String getResourceName() {
-        return TravelsConstants.RESOURCE_NAME;
-    }
+	@Override
+	public PortletResourcePermissionLogic[]
+		getPortletResourcePermissionLogics() {
 
-    @Reference
-    private StagingPermission _stagingPermission;
+		return new PortletResourcePermissionLogic[] {
+			new StagedPortletPermissionLogic(
+				_stagingPermission, "com_liferay_travel_web_TravelPortlet")
+		};
+	}
+
+	@Override
+	public String getResourceName() {
+		return TravelsConstants.RESOURCE_NAME;
+	}
+
+	@Reference
+	private StagingPermission _stagingPermission;
+
 }

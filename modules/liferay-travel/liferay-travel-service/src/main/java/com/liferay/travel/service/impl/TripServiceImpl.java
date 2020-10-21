@@ -23,10 +23,13 @@ import com.liferay.travel.constants.TravelsConstants;
 import com.liferay.travel.model.Trip;
 import com.liferay.travel.service.base.TripServiceBaseImpl;
 
-import org.osgi.service.component.annotations.*;
-
 import java.util.Date;
 import java.util.List;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.component.annotations.ReferencePolicyOption;
 
 /**
  * The implementation of the trip remote service.
@@ -50,47 +53,60 @@ import java.util.List;
 )
 public class TripServiceImpl extends TripServiceBaseImpl {
 
-	public List<Trip> getTrips() {
-		return tripLocalService.getTrips();
-	}
+	public Trip addTrip(
+			long groupId, long userId, String name, String description,
+			Date startingDate, String image)
+		throws PortalException {
 
-	public Trip getTrip(long tripId) throws PortalException {
-		_tripModelResourcePermission.check(getPermissionChecker(), tripId, ActionKeys.VIEW);
+		_portletResourcePermission.check(
+			getPermissionChecker(), groupId, ActionKeys.ADD_ENTRY);
 
-		return tripLocalService.getTrip(tripId);
-	}
-
-	public Trip addTrip(long groupId, long userId, String name, String description, Date startingDate, String image) throws PortalException {
-		_portletResourcePermission.check(getPermissionChecker(), groupId, ActionKeys.ADD_ENTRY);
-
-		return tripLocalService.addTrip(groupId, userId, name, description, startingDate, image);
-	}
-
-	public Trip updateTrip(long groupId, long userId, long tripId, String name, String description, Date startingDate, String image)
-			throws PortalException {
-		_tripModelResourcePermission.check(getPermissionChecker(), tripId, ActionKeys.UPDATE);
-
-		return tripLocalService.updateTrip(groupId, userId, tripId, name, description, startingDate, image);
+		return tripLocalService.addTrip(
+			groupId, userId, name, description, startingDate, image);
 	}
 
 	public Trip deleteTrip(long tripId) throws PortalException {
-		_tripModelResourcePermission.check(getPermissionChecker(), tripId, ActionKeys.DELETE);
+		_tripModelResourcePermission.check(
+			getPermissionChecker(), tripId, ActionKeys.DELETE);
 
 		return tripLocalService.deleteTrip(tripId);
 	}
 
-	@Reference(
-			policy = ReferencePolicy.DYNAMIC,
-			policyOption = ReferencePolicyOption.GREEDY,
-			target = "(model.class.name=" + TravelsConstants.RESOURCE_NAME + ".Trip)"
-	)
-	private volatile ModelResourcePermission<Trip>
-			_tripModelResourcePermission;
+	public Trip getTrip(long tripId) throws PortalException {
+		_tripModelResourcePermission.check(
+			getPermissionChecker(), tripId, ActionKeys.VIEW);
+
+		return tripLocalService.getTrip(tripId);
+	}
+
+	public List<Trip> getTrips() {
+		return tripLocalService.getTrips();
+	}
+
+	public Trip updateTrip(
+			long groupId, long userId, long tripId, String name,
+			String description, Date startingDate, String image)
+		throws PortalException {
+
+		_tripModelResourcePermission.check(
+			getPermissionChecker(), tripId, ActionKeys.UPDATE);
+
+		return tripLocalService.updateTrip(
+			groupId, userId, tripId, name, description, startingDate, image);
+	}
 
 	@Reference(
-			policy = ReferencePolicy.DYNAMIC,
-			policyOption = ReferencePolicyOption.GREEDY,
-			target = "(resource.name=" + TravelsConstants.RESOURCE_NAME + ")"
+		policy = ReferencePolicy.DYNAMIC,
+		policyOption = ReferencePolicyOption.GREEDY,
+		target = "(resource.name=" + TravelsConstants.RESOURCE_NAME + ")"
 	)
 	private volatile PortletResourcePermission _portletResourcePermission;
+
+	@Reference(
+		policy = ReferencePolicy.DYNAMIC,
+		policyOption = ReferencePolicyOption.GREEDY,
+		target = "(model.class.name=" + TravelsConstants.RESOURCE_NAME + ".Trip)"
+	)
+	private volatile ModelResourcePermission<Trip> _tripModelResourcePermission;
+
 }

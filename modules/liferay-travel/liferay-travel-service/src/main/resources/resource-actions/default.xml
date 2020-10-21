@@ -6,8 +6,8 @@
 		<portlet-ref>
 			<portlet-name>com_liferay_travel_web_TravelPortlet</portlet-name>
 		</portlet-ref>
-    	<root>true</root>
-    	<permissions>
+		<root>true</root>
+		<permissions>
 			<supports>
 				<action-key>ADD_ENTRY</action-key>
 				<action-key>PERMISSIONS</action-key>
@@ -20,32 +20,6 @@
 			<guest-unsupported>
 				<action-key>ADD_ENTRY</action-key>
 				<action-key>PERMISSIONS</action-key>
-			</guest-unsupported>
-		</permissions>
-	</model-resource>
-	<model-resource>
-		<model-name>com.liferay.travel.model.Trip</model-name>
-		<portlet-ref>
-			<portlet-name>com_liferay_travel_web_TravelPortlet</portlet-name>
-		</portlet-ref>
-		<permissions>
-			<supports>
-				<action-key>DELETE</action-key>
-				<action-key>UPDATE</action-key>
-				<action-key>VIEW</action-key>
-				<action-key>ADD_STAGE</action-key>
-			</supports>
-			<site-member-defaults>
-				<action-key>VIEW</action-key>
-				<action-key>ADD_STAGE</action-key>
-			</site-member-defaults>
-			<guest-defaults>
-				<action-key>VIEW</action-key>
-			</guest-defaults>
-			<guest-unsupported>
-				<action-key>DELETE</action-key>
-				<action-key>UPDATE</action-key>
-				<action-key>ADD_STAGE</action-key>
 			</guest-unsupported>
 		</permissions>
 	</model-resource>
@@ -72,4 +46,30 @@
 			</guest-unsupported>
 		</permissions>
 	</model-resource>
-</resource-action-mapping>	
+	<model-resource>
+		<model-name>com.liferay.travel.model.Trip</model-name>
+		<portlet-ref>
+			<portlet-name>com_liferay_travel_web_TravelPortlet</portlet-name>
+		</portlet-ref>
+		<permissions>
+			<supports>
+				<action-key>ADD_STAGE</action-key>
+				<action-key>DELETE</action-key>
+				<action-key>UPDATE</action-key>
+				<action-key>VIEW</action-key>
+			</supports>
+			<site-member-defaults>
+				<action-key>ADD_STAGE</action-key>
+				<action-key>VIEW</action-key>
+			</site-member-defaults>
+			<guest-defaults>
+				<action-key>VIEW</action-key>
+			</guest-defaults>
+			<guest-unsupported>
+				<action-key>ADD_STAGE</action-key>
+				<action-key>DELETE</action-key>
+				<action-key>UPDATE</action-key>
+			</guest-unsupported>
+		</permissions>
+	</model-resource>
+</resource-action-mapping>

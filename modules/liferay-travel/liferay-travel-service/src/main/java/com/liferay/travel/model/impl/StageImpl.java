@@ -25,7 +25,7 @@ package com.liferay.travel.model.impl;
  */
 public class StageImpl extends StageBaseImpl {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. All methods that expect a stage model instance should use the {@link com.liferay.travel.model.Stage} interface instead.

@@ -25,7 +25,7 @@ package com.liferay.travel.model.impl;
  */
 public class TripImpl extends TripBaseImpl {
 
-	/*
+	/**
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. All methods that expect a trip model instance should use the {@link com.liferay.travel.model.Trip} interface instead.

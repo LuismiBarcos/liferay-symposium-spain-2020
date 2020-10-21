@@ -1,50 +1,80 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 package com.liferay.travel.internal.search.spi.model.index.contributor;
 
-import com.liferay.portal.kernel.search.Document;
-import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
-import com.liferay.portal.kernel.service.CompanyLocalServiceUtil;
 import com.liferay.portal.search.batch.BatchIndexingActionable;
 import com.liferay.portal.search.batch.DynamicQueryBatchIndexingActionableFactory;
 import com.liferay.portal.search.spi.model.index.contributor.ModelIndexerWriterContributor;
 import com.liferay.portal.search.spi.model.index.contributor.helper.ModelIndexerWriterDocumentHelper;
 import com.liferay.travel.model.Trip;
 import com.liferay.travel.service.TripLocalService;
+
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Luis Miguel Barcos
  */
-
 @Component(
-        immediate = true,
-        property = "indexer.class.name=com.liferay.travel.model.Trip",
-        service = ModelIndexerWriterContributor.class
+	immediate = true,
+	property = "indexer.class.name=com.liferay.travel.model.Trip",
+	service = ModelIndexerWriterContributor.class
 )
-public class TripModelIndexerWriterContributor implements ModelIndexerWriterContributor<Trip> {
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+public class TripModelIndexerWriterContributor
+	implements ModelIndexerWriterContributor<Trip> {
 
-    @Reference
-    protected DynamicQueryBatchIndexingActionableFactory dynamicQueryBatchIndexingActionableFactory;
+	@Override
+	public void customize(
+		BatchIndexingActionable batchIndexingActionable,
+		ModelIndexerWriterDocumentHelper modelIndexerWriterDocumentHelper) {
 
-    @Reference
-    protected TripLocalService tripLocalService;
+		batchIndexingActionable.setPerformActionMethod(
+			(Trip trip) -> batchIndexingActionable.addDocuments(
+				modelIndexerWriterDocumentHelper.getDocument(trip)));
+	}
 
-    @Override
-    public void customize(BatchIndexingActionable batchIndexingActionable, ModelIndexerWriterDocumentHelper modelIndexerWriterDocumentHelper) {
-        batchIndexingActionable.setPerformActionMethod((Trip trip) -> {
-            Document document = modelIndexerWriterDocumentHelper.getDocument(trip);
-            batchIndexingActionable.addDocuments(document);
-        });
-    }
+	@Override
+	public BatchIndexingActionable getBatchIndexingActionable() {
+		return dynamicQueryBatchIndexingActionableFactory.
+			getBatchIndexingActionable(
+				tripLocalService.getIndexableActionableDynamicQuery());
+	}
 
-    @Override
-    public BatchIndexingActionable getBatchIndexingActionable() {
-        return dynamicQueryBatchIndexingActionableFactory
-                .getBatchIndexingActionable(tripLocalService.getIndexableActionableDynamicQuery());
-    }
+	@Override
+	public long getCompanyId(Trip trip) {
+		return trip.getCompanyId();
+	}
 
-    @Override
-    public long getCompanyId(Trip trip) {
-        return trip.getCompanyId();
-    }
+	@Reference
+	protected DynamicQueryBatchIndexingActionableFactory
+		dynamicQueryBatchIndexingActionableFactory;
+
+	@Reference
+	protected TripLocalService tripLocalService;
+
 }

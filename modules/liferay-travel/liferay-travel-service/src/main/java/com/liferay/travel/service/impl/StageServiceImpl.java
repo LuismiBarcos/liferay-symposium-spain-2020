@@ -22,9 +22,12 @@ import com.liferay.travel.constants.TravelsConstants;
 import com.liferay.travel.model.Stage;
 import com.liferay.travel.service.base.StageServiceBaseImpl;
 
-import org.osgi.service.component.annotations.*;
-
 import java.util.List;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferencePolicy;
+import org.osgi.service.component.annotations.ReferencePolicyOption;
 
 /**
  * The implementation of the stage remote service.
@@ -48,42 +51,57 @@ import java.util.List;
 )
 public class StageServiceImpl extends StageServiceBaseImpl {
 
-	public List<Stage> getStages(long tripId) throws PortalException {
-		_stageModelResourcePermission.check(getPermissionChecker(), tripId, ActionKeys.VIEW);
+	public Stage addStage(
+			long groupId, long userId, long tripId, String name,
+			String description, String place, String image)
+		throws PortalException {
 
-		return stageLocalService.getStages(tripId);
-	}
+		_stageModelResourcePermission.check(
+			getPermissionChecker(), tripId, "ADD_STAGE");
 
-	public Stage getStage(long stageId) throws PortalException {
-		_stageModelResourcePermission.check(getPermissionChecker(), stageId, ActionKeys.VIEW);
-
-		return stageLocalService.getStage(stageId);
-	}
-
-	public Stage addStage(long groupId, long userId, long tripId, String name, String description, String place, String image) throws PortalException {
-		_stageModelResourcePermission.check(getPermissionChecker(), tripId, "ADD_STAGE");
-
-		return stageLocalService.addStage(groupId, userId, tripId, name, description, place, image);
-	}
-
-	public Stage updateStage(long stageId, String name, String description, String place, String image)
-			throws PortalException {
-		_stageModelResourcePermission.check(getPermissionChecker(), stageId, ActionKeys.UPDATE);
-
-		return stageLocalService.updateStage(stageId, name, description, place, image);
+		return stageLocalService.addStage(
+			groupId, userId, tripId, name, description, place, image);
 	}
 
 	public Stage deleteStage(long stageId) throws PortalException {
-		_stageModelResourcePermission.check(getPermissionChecker(), stageId, ActionKeys.DELETE);
+		_stageModelResourcePermission.check(
+			getPermissionChecker(), stageId, ActionKeys.DELETE);
 
 		return stageLocalService.deleteStage(stageId);
 	}
 
+	public Stage getStage(long stageId) throws PortalException {
+		_stageModelResourcePermission.check(
+			getPermissionChecker(), stageId, ActionKeys.VIEW);
+
+		return stageLocalService.getStage(stageId);
+	}
+
+	public List<Stage> getStages(long tripId) throws PortalException {
+		_stageModelResourcePermission.check(
+			getPermissionChecker(), tripId, ActionKeys.VIEW);
+
+		return stageLocalService.getStages(tripId);
+	}
+
+	public Stage updateStage(
+			long stageId, String name, String description, String place,
+			String image)
+		throws PortalException {
+
+		_stageModelResourcePermission.check(
+			getPermissionChecker(), stageId, ActionKeys.UPDATE);
+
+		return stageLocalService.updateStage(
+			stageId, name, description, place, image);
+	}
+
 	@Reference(
-			policy = ReferencePolicy.DYNAMIC,
-			policyOption = ReferencePolicyOption.GREEDY,
-			target = "(model.class.name=" + TravelsConstants.RESOURCE_NAME + ".Stage)"
+		policy = ReferencePolicy.DYNAMIC,
+		policyOption = ReferencePolicyOption.GREEDY,
+		target = "(model.class.name=" + TravelsConstants.RESOURCE_NAME + ".Stage)"
 	)
 	private volatile ModelResourcePermission<Stage>
-			_stageModelResourcePermission;
+		_stageModelResourcePermission;
+
 }

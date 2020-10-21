@@ -23,10 +23,10 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.travel.model.Trip;
 import com.liferay.travel.service.base.TripLocalServiceBaseImpl;
 
-import org.osgi.service.component.annotations.Component;
-
 import java.util.Date;
 import java.util.List;
+
+import org.osgi.service.component.annotations.Component;
 
 /**
  * The implementation of the trip local service.
@@ -47,53 +47,41 @@ import java.util.List;
 )
 public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 
-	public List<Trip> getTrips() {
-		return tripPersistence.findAll();
-	}
-
 	@Indexable(type = IndexableType.REINDEX)
-	public Trip addTrip(long groupId, long userId, String name, String description, Date startingDate, String image)
-			throws PortalException {
+	public Trip addTrip(
+			long groupId, long userId, String name, String description,
+			Date startingDate, String image)
+		throws PortalException {
 
 		Group group = groupLocalService.getGroup(groupId);
 
 		long tripId = counterLocalService.increment();
 
 		Trip newTrip = tripPersistence.create(tripId);
+
 		newTrip.setName(name);
 		newTrip.setDescription(description);
 		newTrip.setStartingDate(startingDate);
 		newTrip.setImage(image);
 
-		resourceLocalService.addResources(group.getCompanyId(), groupId, userId, Trip.class.getName(), tripId, false,
-				true, true);
+		resourceLocalService.addResources(
+			group.getCompanyId(), groupId, userId, Trip.class.getName(), tripId,
+			false, true, true);
 
 		// Asset
-		updateAsset(userId, groupId, tripId);
+
+		_updateAsset(userId, groupId, tripId);
 
 		return super.addTrip(newTrip);
-	}
-
-	@Indexable(type = IndexableType.REINDEX)
-	public Trip updateTrip(long groupId, long userId, long tripId, String name, String description, Date startingDate, String image)
-			throws PortalException {
-		Trip trip = tripPersistence.findByPrimaryKey(tripId);
-		trip.setName(name);
-		trip.setStartingDate(startingDate);
-		trip.setDescription(description);
-		trip.setImage(image);
-
-		// Asset
-		updateAsset(userId, groupId, tripId);
-		return super.updateTrip(trip);
 	}
 
 	@Indexable(type = IndexableType.DELETE)
 	public Trip deleteTrip(long tripId) throws PortalException {
 		Trip trip = getTrip(tripId);
 
-		resourceLocalService.deleteResource(trip.getCompanyId(), Trip.class.getName(),
-				ResourceConstants.SCOPE_INDIVIDUAL, tripId);
+		resourceLocalService.deleteResource(
+			trip.getCompanyId(), Trip.class.getName(),
+			ResourceConstants.SCOPE_INDIVIDUAL, tripId);
 
 		//Asset
 		assetEntryLocalService.deleteEntry(Trip.class.getName(), tripId);
@@ -101,8 +89,35 @@ public class TripLocalServiceImpl extends TripLocalServiceBaseImpl {
 		return super.deleteTrip(trip);
 	}
 
-	private void updateAsset(Long userId, Long groupId, Long classPK) throws PortalException {
-		assetEntryLocalService.updateEntry(
-				userId, groupId, Trip.class.getName(), classPK, null, null);
+	public List<Trip> getTrips() {
+		return tripPersistence.findAll();
 	}
+
+	@Indexable(type = IndexableType.REINDEX)
+	public Trip updateTrip(
+			long groupId, long userId, long tripId, String name,
+			String description, Date startingDate, String image)
+		throws PortalException {
+
+		Trip trip = tripPersistence.findByPrimaryKey(tripId);
+
+		trip.setName(name);
+		trip.setStartingDate(startingDate);
+		trip.setDescription(description);
+		trip.setImage(image);
+
+		// Asset
+
+		_updateAsset(userId, groupId, tripId);
+
+		return super.updateTrip(trip);
+	}
+
+	private void _updateAsset(Long userId, Long groupId, Long classPK)
+		throws PortalException {
+
+		assetEntryLocalService.updateEntry(
+			userId, groupId, Trip.class.getName(), classPK, null, null);
+	}
+
 }

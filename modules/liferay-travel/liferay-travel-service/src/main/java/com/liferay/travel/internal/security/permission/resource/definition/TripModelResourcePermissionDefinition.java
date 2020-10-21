@@ -24,56 +24,60 @@ import com.liferay.portal.kernel.security.permission.resource.definition.ModelRe
 import com.liferay.travel.constants.TravelsConstants;
 import com.liferay.travel.model.Trip;
 import com.liferay.travel.service.TripLocalService;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.function.Consumer;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * @author Javier de Arcos
  */
-@Component(
-        immediate = true,
-        service = ModelResourcePermissionDefinition.class
-)
-public class TripModelResourcePermissionDefinition implements ModelResourcePermissionDefinition<Trip> {
-    @Override
-    public Trip getModel(long primaryKey) throws PortalException {
-        return _tripLocalService.getTrip(primaryKey);
-    }
+@Component(immediate = true, service = ModelResourcePermissionDefinition.class)
+public class TripModelResourcePermissionDefinition
+	implements ModelResourcePermissionDefinition<Trip> {
 
-    @Override
-    public Class<Trip> getModelClass() {
-        return Trip.class;
-    }
+	@Override
+	public Trip getModel(long primaryKey) throws PortalException {
+		return _tripLocalService.getTrip(primaryKey);
+	}
 
-    @Override
-    public PortletResourcePermission getPortletResourcePermission() {
-        return _portletResourcePermission;
-    }
+	@Override
+	public Class<Trip> getModelClass() {
+		return Trip.class;
+	}
 
-    @Override
-    public long getPrimaryKey(Trip trip) {
-        return trip.getTripId();
-    }
+	@Override
+	public PortletResourcePermission getPortletResourcePermission() {
+		return _portletResourcePermission;
+	}
 
-    @Override
-    public void registerModelResourcePermissionLogics(
-            ModelResourcePermission<Trip> modelResourcePermission,
-            Consumer<ModelResourcePermissionLogic<Trip>> modelResourcePermissionLogicConsumer) {
-        modelResourcePermissionLogicConsumer.accept(
-                new StagedModelPermissionLogic<>(
-                        _stagingPermission,
-                        "com_liferay_travel_web_TravelPortlet",
-                        Trip::getTripId));
-    }
+	@Override
+	public long getPrimaryKey(Trip trip) {
+		return trip.getTripId();
+	}
 
-    @Reference
-    private TripLocalService _tripLocalService;
+	@Override
+	public void registerModelResourcePermissionLogics(
+		ModelResourcePermission<Trip> modelResourcePermission,
+		Consumer<ModelResourcePermissionLogic<Trip>>
+			modelResourcePermissionLogicConsumer) {
 
-    @Reference(target = "(resource.name=" + TravelsConstants.RESOURCE_NAME + ")")
-    private PortletResourcePermission _portletResourcePermission;
+		modelResourcePermissionLogicConsumer.accept(
+			new StagedModelPermissionLogic<>(
+				_stagingPermission, "com_liferay_travel_web_TravelPortlet",
+				Trip::getTripId));
+	}
 
-    @Reference
-    private StagingPermission _stagingPermission;
+	@Reference(
+		target = "(resource.name=" + TravelsConstants.RESOURCE_NAME + ")"
+	)
+	private PortletResourcePermission _portletResourcePermission;
+
+	@Reference
+	private StagingPermission _stagingPermission;
+
+	@Reference
+	private TripLocalService _tripLocalService;
+
 }
