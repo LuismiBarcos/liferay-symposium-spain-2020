@@ -97,7 +97,7 @@ public class TripResourceImpl extends BaseTripResourceImpl implements EntityMode
 		return HashMapBuilder
 				.put("get", addAction("VIEW", trip, "getTrip"))
 				.put("add_stage",
-						ActionUtil.addAction("ADD_STAGE", StageResource.class, trip, "postTripStage",
+						ActionUtil.addAction("ADD_STAGE", StageResourceImpl.class, trip, "postTripStage",
 								contextScopeChecker, contextUriInfo))
 				.put("update", addAction("UPDATE", trip, "putTrip"))
 				.put("delete", addAction("DELETE", trip, "deleteTrip"))
